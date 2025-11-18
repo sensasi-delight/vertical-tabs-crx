@@ -34,7 +34,10 @@
         },
         "enabled": true,
         "rules": {
-            "recommended": true
+            "recommended": true,
+            "style": {
+                "useFilenamingConvention": "error"
+            }
         }
     },
     "vcs": {
