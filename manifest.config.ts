@@ -25,7 +25,7 @@ export default defineManifest({
         48: 'public/logo.png',
     },
     manifest_version: 3,
-    name: pkg.name,
+    name: 'Sidenav Delight',
     permissions: ['sidePanel', 'tabs'],
     side_panel: {
         default_path: 'src/side-panel/index.html',
