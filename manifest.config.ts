@@ -26,7 +26,7 @@ export default defineManifest({
     },
     manifest_version: 3,
     name: 'Sidenav Delight',
-    permissions: ['sidePanel', 'tabs'],
+    permissions: ['history', 'sidePanel', 'tabs'],
     side_panel: {
         default_path: 'src/side-panel/index.html',
     },
