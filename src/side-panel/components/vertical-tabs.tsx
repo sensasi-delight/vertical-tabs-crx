@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import './vertical-tabs.css'
 import useTabs from '../hooks/use-tabs'
+import style from './vertical-tabs.module.css'
 
 export default function VerticalTabs() {
     const [tabs] = useTabs()
@@ -23,8 +23,8 @@ export default function VerticalTabs() {
     }, [])
 
     return (
-        <div className="vertical-tabs-container">
-            <div className="vertical-tabs">
+        <div className={style['vertical-tabs-container']}>
+            <div className={style['vertical-tabs']}>
                 {tabs.map(tab => (
                     <TabItem
                         active={tab.id === activeTabId}
@@ -43,9 +43,11 @@ function TabItem({ tab, active }: { tab: chrome.tabs.Tab; active: boolean }) {
     }
 
     return (
-        <div className={`tab-item ${active ? 'active' : ''}`} title={tab.title}>
+        <div
+            className={`${style['tab-item']} ${active ? style.active : ''}`}
+            title={tab.title}>
             <button
-                className="tab-button"
+                className={style['tab-button']}
                 onClick={() => handleTabClick(tab)}
                 onKeyDown={e => {
                     if (e.key === 'Enter' || e.key === ' ') {
@@ -53,11 +55,11 @@ function TabItem({ tab, active }: { tab: chrome.tabs.Tab; active: boolean }) {
                     }
                 }}
                 type="button">
-                <div className="tab-content">
+                <div className={style['tab-content']}>
                     {tab.favIconUrl ? (
                         <img
                             alt=""
-                            className="tab-favicon"
+                            className={style['tab-favicon']}
                             onError={e => {
                                 ;(e.target as HTMLImageElement).style.display =
                                     'none'
@@ -67,7 +69,7 @@ function TabItem({ tab, active }: { tab: chrome.tabs.Tab; active: boolean }) {
                     ) : (
                         <PlaceholderFavicon />
                     )}
-                    <span className="tab-title">
+                    <span className={style['tab-title']}>
                         {tab.title ?? tab.url ?? 'Untitled'}
                     </span>
                 </div>
@@ -80,7 +82,7 @@ function TabItem({ tab, active }: { tab: chrome.tabs.Tab; active: boolean }) {
 
 function PlaceholderFavicon() {
     return (
-        <div className="tab-favicon-placeholder">
+        <div className={style['tab-favicon-placeholder']}>
             <svg
                 aria-hidden="true"
                 fill="none"
@@ -107,7 +109,7 @@ function TabCloseButton({ tabId }: { tabId: chrome.tabs.Tab['id'] }) {
     return (
         <button
             aria-label="Close tab"
-            className="tab-close"
+            className={style['tab-close']}
             onClick={e => handleTabClose(e, tabId)}
             type="button">
             <svg
