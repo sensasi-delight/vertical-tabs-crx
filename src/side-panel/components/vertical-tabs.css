@@ -1,5 +1,5 @@
 .vertical-tabs-container {
-    padding: 16px 12px;
+    padding: 0;
     overflow-x: hidden;
     overflow-y: auto;
     font-family:
@@ -11,6 +11,7 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
+    padding: 12px;
 }
 
 .tab-item {
