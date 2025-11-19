@@ -34,6 +34,9 @@
         },
         "enabled": true,
         "rules": {
+            "a11y": {
+                "useSemanticElements": "off"
+            },
             "recommended": true,
             "style": {
                 "useFilenamingConvention": "error"

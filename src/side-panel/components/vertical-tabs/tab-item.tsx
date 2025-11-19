@@ -5,7 +5,16 @@ import style from './index.module.css'
 import type { TabCloseButtonProps, TabItemProps } from './types'
 import { useTabActions } from './use-tab-actions'
 
-export function TabItem({ tab, isActive }: TabItemProps) {
+export function TabItem({
+    tab,
+    isActive,
+    isDragging,
+    isDragOver,
+    onDragStart,
+    onDragOver,
+    onDragEnd,
+    onDrop,
+}: TabItemProps) {
     const { activateTab } = useTabActions()
 
     const handleClick = () => {
@@ -20,10 +29,19 @@ export function TabItem({ tab, isActive }: TabItemProps) {
     }
 
     const tabTitle = tab.title ?? tab.url ?? TAB_TITLE_FALLBACK
-    const tabClassName = `${style['tab-item']} ${isActive ? style.active : ''}`
+    const tabClassName = `${style['tab-item']} ${isActive ? style.active : ''} ${isDragging ? style.dragging : ''} ${isDragOver ? style['drag-over'] : ''}`
 
     return (
-        <div className={tabClassName} title={tabTitle}>
+        <div
+            className={tabClassName}
+            draggable
+            onDragEnd={onDragEnd}
+            onDragOver={onDragOver}
+            onDragStart={onDragStart}
+            onDrop={onDrop}
+            role="button"
+            tabIndex={0}
+            title={tabTitle}>
             <button
                 className={style['tab-button']}
                 onClick={handleClick}
@@ -39,7 +57,6 @@ export function TabItem({ tab, isActive }: TabItemProps) {
         </div>
     )
 }
-
 function TabFavicon({ url }: { url?: string }) {
     const [hasError, setHasError] = useState(false)
 

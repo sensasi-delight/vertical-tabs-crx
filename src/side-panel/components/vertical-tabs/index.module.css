@@ -78,6 +78,17 @@
     opacity: 1;
 }
 
+/* Drag and Drop States */
+.tab-item.dragging {
+    cursor: move;
+    opacity: 0.5;
+}
+
+.tab-item.drag-over {
+    border-color: var(--color-accent-blue);
+    box-shadow: 0 0 0 2px var(--color-accent-blue);
+}
+
 /* ========================================
    Tab Button & Content
    ======================================== */

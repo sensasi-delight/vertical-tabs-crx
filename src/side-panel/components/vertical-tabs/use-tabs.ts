@@ -1,38 +1,54 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function useTabs() {
     const [tabs, setTabs] = useState<chrome.tabs.Tab[]>([])
-    const isInitRef = useRef(false)
 
     useEffect(() => {
-        if (isInitRef.current) return
-
-        isInitRef.current = true
-
         chrome.tabs.query({}, fetchedTabs => {
-            setTabs(fetchedTabs)
+            setTabs(fetchedTabs.sort((a, b) => a.index - b.index))
         })
 
-        chrome.tabs.onCreated.addListener(tab => {
-            setTabs(prevTabs => [...prevTabs, tab])
-        })
+        const handleTabCreated = (tab: chrome.tabs.Tab) => {
+            setTabs(prevTabs =>
+                [...prevTabs, tab].sort((a, b) => a.index - b.index),
+            )
+        }
 
-        chrome.tabs.onRemoved.addListener(tabId => {
+        chrome.tabs.onCreated.addListener(handleTabCreated)
+
+        const handleTabRemoved = (tabId: number) => {
             setTabs(prevTabs => prevTabs.filter(tab => tab.id !== tabId))
-        })
+        }
 
-        chrome.tabs.onUpdated.addListener((tabId, _, tab) => {
+        chrome.tabs.onRemoved.addListener(handleTabRemoved)
+
+        const handleTabUpdated = (
+            tabId: number,
+            _: chrome.tabs.OnUpdatedInfo,
+            tab: chrome.tabs.Tab,
+        ) => {
             setTabs(prevTabs =>
                 prevTabs.map(prevTab =>
                     prevTab.id === tabId ? { ...prevTab, ...tab } : prevTab,
                 ),
             )
-        })
+        }
+
+        chrome.tabs.onUpdated.addListener(handleTabUpdated)
+
+        const handleTabMoved = () => {
+            chrome.tabs.query({}, fetchedTabs => {
+                setTabs(fetchedTabs.sort((a, b) => a.index - b.index))
+            })
+        }
+
+        chrome.tabs.onMoved.addListener(handleTabMoved)
 
         return () => {
-            chrome.tabs.onUpdated.removeListener(() => {})
-            chrome.tabs.onCreated.removeListener(() => {})
-            chrome.tabs.onRemoved.removeListener(() => {})
+            chrome.tabs.onUpdated.removeListener(handleTabUpdated)
+            chrome.tabs.onCreated.removeListener(handleTabCreated)
+            chrome.tabs.onRemoved.removeListener(handleTabRemoved)
+            chrome.tabs.onMoved.removeListener(handleTabMoved)
         }
     }, [])
 
