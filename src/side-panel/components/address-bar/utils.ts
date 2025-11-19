@@ -1,7 +1,10 @@
 import { URL_REGEX } from './constants'
 
 export function cleanUrl(url: string): string {
-    return url.replace(/^(https?:\/\/)?(www\.)?/, '').replace(/\/$/, '')
+    return url
+        .replace(/^(https?:\/\/)?(www\.)?/, '')
+        .replace(/\/$/, '')
+        .replace(/^chrome:\/\/(newtab)\/?$/, '')
 }
 
 export function isValidUrl(href: string): boolean {
