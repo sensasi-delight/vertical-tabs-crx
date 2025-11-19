@@ -1,9 +1,9 @@
 import { type KeyboardEvent, type MouseEvent, useState } from 'react'
 import { ARIA_LABELS, KEYBOARD_KEYS, TAB_TITLE_FALLBACK } from './constants'
 import { CloseIcon, PlaceholderIcon } from './icons'
+import style from './index.module.css'
 import type { TabCloseButtonProps, TabItemProps } from './types'
 import { useTabActions } from './use-tab-actions'
-import style from './vertical-tabs.module.css'
 
 export function TabItem({ tab, isActive }: TabItemProps) {
     const { activateTab } = useTabActions()

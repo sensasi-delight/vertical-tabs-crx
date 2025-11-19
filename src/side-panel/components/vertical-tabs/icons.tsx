@@ -1,5 +1,5 @@
 import { ICON_SIZES } from './constants'
-import style from './vertical-tabs.module.css'
+import style from './index.module.css'
 
 export function PlaceholderIcon() {
     return (
