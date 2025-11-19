@@ -1,9 +1,11 @@
 import { useRef } from 'react'
 import { AddressBarIcon } from './address-bar-icon'
 import style from './index.module.css'
+import { LinearProgress } from './linear-progress'
 import { SearchInput } from './search-input'
 import { SuggestionsDropdown } from './suggestions-dropdown'
 import { useDropdown } from './use-dropdown'
+import { useLoadingState } from './use-loading-state'
 import { useSuggestions } from './use-suggestions'
 import { useTabState } from './use-tab-state'
 import { cleanUrl, formatUrlForNavigation } from './utils'
@@ -11,6 +13,7 @@ import { cleanUrl, formatUrlForNavigation } from './utils'
 export default function AddressBar() {
     const inputRef = useRef<HTMLInputElement>(null)
     const { activeTab, inputValue, setInputValue } = useTabState()
+    const isLoading = useLoadingState(activeTab?.id)
     const {
         showDropdown,
         setShowDropdown,
@@ -131,6 +134,8 @@ export default function AddressBar() {
                     suggestions={suggestions}
                 />
             )}
+
+            <LinearProgress isLoading={isLoading} />
         </div>
     )
 }
