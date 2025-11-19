@@ -1,18 +1,18 @@
+import useActiveTab from '../../hooks/use-active-tab'
 import style from './index.module.css'
 import { TabItem } from './tab-item'
-import { useActiveTab } from './use-active-tab'
 import useTabs from './use-tabs'
 
 export default function VerticalTabs() {
     const tabs = useTabs()
-    const activeTabId = useActiveTab()
+    const activeTab = useActiveTab()
 
     return (
         <div className={style['vertical-tabs-container']}>
             <div className={style['vertical-tabs']}>
                 {tabs.map(tab => (
                     <TabItem
-                        isActive={tab.id === activeTabId}
+                        isActive={tab.id === activeTab?.id}
                         key={tab.id}
                         tab={tab}
                     />

@@ -10,7 +10,7 @@ import { cleanUrl, formatUrlForNavigation } from './utils'
 
 export default function AddressBar() {
     const inputRef = useRef<HTMLInputElement>(null)
-    const { currentTab, inputValue, setInputValue } = useTabState()
+    const { activeTab, inputValue, setInputValue } = useTabState()
     const {
         showDropdown,
         setShowDropdown,
@@ -30,10 +30,10 @@ export default function AddressBar() {
         showDropdown && (hasSearchQuery || suggestions.length > 0)
 
     const navigateToUrl = (url: string) => {
-        if (!currentTab?.id) return
+        if (!activeTab?.id) return
 
         const formattedUrl = formatUrlForNavigation(url)
-        chrome.tabs.update(currentTab.id, { url: formattedUrl })
+        chrome.tabs.update(activeTab.id, { url: formattedUrl })
     }
 
     const handleInputChange = (value: string) => {
@@ -107,7 +107,7 @@ export default function AddressBar() {
         <div className={style['address-bar']}>
             <div>
                 <div className={style['address-bar-icon']}>
-                    <AddressBarIcon favIconUrl={currentTab?.favIconUrl} />
+                    <AddressBarIcon favIconUrl={activeTab?.favIconUrl} />
                 </div>
 
                 <SearchInput

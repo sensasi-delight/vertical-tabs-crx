@@ -1,5 +1,5 @@
 export interface UseTabStateReturn {
-    currentTab: chrome.tabs.Tab | undefined
+    activeTab: chrome.tabs.Tab | undefined
     inputValue: string
     setInputValue: (value: string) => void
 }
