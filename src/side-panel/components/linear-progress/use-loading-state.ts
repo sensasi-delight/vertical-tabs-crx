@@ -4,18 +4,21 @@ import useActiveTab from '@/side-panel/hooks/use-active-tab'
 export function useLoadingState() {
     const activateTab = useActiveTab()
     const [isLoading, setIsLoading] = useState(false)
-    const isInitRef = useRef(false)
     const activeTabRef = useRef(activateTab)
 
     useEffect(() => {
         activeTabRef.current = activateTab
+
+        if (!activateTab?.id) {
+            setIsLoading(false)
+        }
     }, [activateTab])
 
     useEffect(() => {
-        if (isInitRef.current) return
-        isInitRef.current = true
-
-        chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
+        const handleTabUpdated = (
+            tabId: number,
+            changeInfo: chrome.tabs.OnUpdatedInfo,
+        ) => {
             if (tabId !== activeTabRef.current?.id) return
 
             if (changeInfo.status === 'loading') {
@@ -23,20 +26,14 @@ export function useLoadingState() {
             } else if (changeInfo.status === 'complete') {
                 setIsLoading(false)
             }
-        })
+        }
+
+        chrome.tabs.onUpdated.addListener(handleTabUpdated)
+
+        return () => {
+            chrome.tabs.onUpdated.removeListener(handleTabUpdated)
+        }
     }, [])
-
-    useEffect(() => {
-        if (!activateTab?.id) {
-            setIsLoading(false)
-            return
-        }
-
-        if (activateTab.id === undefined) {
-            setIsLoading(false)
-            return
-        }
-    }, [activateTab])
 
     return isLoading
 }

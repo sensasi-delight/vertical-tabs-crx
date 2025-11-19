@@ -1,13 +1,9 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function useActiveTab() {
     const [activeTab, setActiveTab] = useState<chrome.tabs.Tab>()
-    const isInitRef = useRef(false)
 
     useEffect(() => {
-        if (isInitRef.current) return
-        isInitRef.current = true
-
         chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
             const [tab] = tabs
             setActiveTab(tab)
@@ -22,8 +18,7 @@ export default function useActiveTab() {
         chrome.tabs.onActivated.addListener(handleTabActivated)
 
         return () => {
-            // IDK why but listener is removed automatically when this line is uncommented
-            // chrome.tabs.onActivated.removeListener(handleTabActivated)
+            chrome.tabs.onActivated.removeListener(handleTabActivated)
         }
     }, [])
 
