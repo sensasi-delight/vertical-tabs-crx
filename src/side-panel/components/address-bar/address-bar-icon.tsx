@@ -1,10 +1,11 @@
+import useActiveTab from '@/side-panel/hooks/use-active-tab'
 import style from './address-bar-icon.module.css'
 
-interface AddressBarIconProps {
-    favIconUrl?: string
-}
+export function AddressBarIcon() {
+    const activeTab = useActiveTab()
 
-export function AddressBarIcon({ favIconUrl }: AddressBarIconProps) {
+    const favIconUrl = activeTab?.favIconUrl
+
     if (favIconUrl) {
         return <img alt="Favicon" height={16} src={favIconUrl} width={16} />
     }

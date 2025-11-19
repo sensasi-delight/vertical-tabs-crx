@@ -107,7 +107,7 @@ export default function AddressBar() {
         <div className={style['address-bar']}>
             <div>
                 <div className={style['address-bar-icon']}>
-                    <AddressBarIcon favIconUrl={activeTab?.favIconUrl} />
+                    <AddressBarIcon />
                 </div>
 
                 <SearchInput
