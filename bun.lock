@@ -2,7 +2,7 @@
   "lockfileVersion": 1,
   "workspaces": {
     "": {
-      "name": "sidenav-delight-crx",
+      "name": "vertical-tabs-crx",
       "dependencies": {
         "react": "^19.2.0",
         "react-dom": "^19.2.0",
