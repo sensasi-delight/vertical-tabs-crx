@@ -4,3 +4,15 @@
     height: 100vh;
     overflow: hidden;
 }
+
+.top-bar-container {
+    position: relative;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    padding: 12px;
+    background: #0d1117;
+    border-bottom: 1px solid #30363d;
+}
