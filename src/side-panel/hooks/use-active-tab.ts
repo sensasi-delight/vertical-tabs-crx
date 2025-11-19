@@ -8,6 +8,11 @@ export default function useActiveTab() {
         if (isInitRef.current) return
         isInitRef.current = true
 
+        chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
+            const [tab] = tabs
+            setActiveTab(tab)
+        })
+
         const handleTabActivated = ({ tabId }: chrome.tabs.OnActivatedInfo) => {
             chrome.tabs.get(tabId, tab => {
                 setActiveTab(tab)
