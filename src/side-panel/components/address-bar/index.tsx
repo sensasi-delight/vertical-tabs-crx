@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { Activity, useRef } from 'react'
 import { AddressBarIcon } from './address-bar-icon'
 import style from './index.module.css'
 import { LinearProgress } from './linear-progress'
@@ -122,7 +122,7 @@ export default function AddressBar() {
                 />
             </div>
 
-            {shouldShowDropdown && (
+            <Activity mode={shouldShowDropdown ? 'visible' : 'hidden'}>
                 <SuggestionsDropdown
                     dropdownRef={dropdownRef}
                     hasSearchQuery={hasSearchQuery}
@@ -133,7 +133,7 @@ export default function AddressBar() {
                     selectedIndex={selectedIndex}
                     suggestions={suggestions}
                 />
-            )}
+            </Activity>
 
             <LinearProgress isLoading={isLoading} />
         </div>
