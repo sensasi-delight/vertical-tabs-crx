@@ -1,15 +1,14 @@
-import { getFaviconUrl } from './utils'
-
-interface FaviconImageProps {
-    url: string
-}
-
-export function FaviconImage({ url }: FaviconImageProps) {
+export function FaviconImage({ url }: { url: string }) {
     const faviconUrl = getFaviconUrl(url)
 
+    /**
+     * Known issue: fallbackSVG will never show up because {@link getFaviconUrl} has it's own fallback mechanism. example: https://www.google.com/s2/favicons?domain=nonexistentdomain12345.com&sz=32 always returns a generic favicon image.
+     */
     const handleError = (e: React.SyntheticEvent<HTMLImageElement>) => {
         const img = e.target as HTMLImageElement
+
         img.style.display = 'none'
+
         const fallbackSvg = img.nextElementSibling as HTMLElement
         if (fallbackSvg) {
             fallbackSvg.style.display = 'block'
@@ -42,4 +41,13 @@ export function FaviconImage({ url }: FaviconImageProps) {
             </svg>
         </>
     )
+}
+
+function getFaviconUrl(url: string): string {
+    try {
+        const hostname = new URL(url).hostname
+        return `https://www.google.com/s2/favicons?domain=https://${hostname}&sz=32`
+    } catch {
+        return ''
+    }
 }

@@ -1,19 +1,17 @@
 import style from './dropdown-item.module.css'
 import { FaviconImage } from './favicon-image'
 
-interface HistoryItemProps {
-    item: chrome.history.HistoryItem
-    isSelected: boolean
-    onClick: () => void
-    onMouseEnter: () => void
-}
-
 export function HistoryItem({
     item,
     isSelected,
     onClick,
     onMouseEnter,
-}: HistoryItemProps) {
+}: {
+    item: chrome.history.HistoryItem
+    isSelected: boolean
+    onClick: () => void
+    onMouseEnter: () => void
+}) {
     return (
         <button
             className={`${style.item} ${isSelected ? style.selected : ''}`}
