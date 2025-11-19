@@ -33,21 +33,3 @@ export function CloseIcon() {
         </svg>
     )
 }
-
-export function PlusIcon() {
-    return (
-        <svg
-            aria-hidden="true"
-            fill="none"
-            height={ICON_SIZES.NEW_TAB_BUTTON}
-            viewBox="0 0 16 16"
-            width={ICON_SIZES.NEW_TAB_BUTTON}>
-            <path
-                d="M8 2V14M2 8H14"
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeWidth="1.5"
-            />
-        </svg>
-    )
-}

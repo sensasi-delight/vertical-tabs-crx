@@ -14,9 +14,5 @@ export function useTabActions() {
         chrome.tabs.remove(tabId)
     }, [])
 
-    const createNewTab = useCallback(() => {
-        chrome.tabs.create({ active: true })
-    }, [])
-
-    return { activateTab, closeTab, createNewTab }
+    return { activateTab, closeTab }
 }

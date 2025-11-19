@@ -1,61 +1,7 @@
 /* ========================================
-   CSS Custom Properties (Design Tokens)
-   ======================================== */
-:root {
-    /* Colors */
-    --color-bg-primary: #0d1117;
-    --color-bg-secondary: #161b22;
-    --color-bg-tertiary: #1c2128;
-    --color-bg-active: #0d419d;
-    --color-bg-hover: #2d333b;
-    --color-bg-active-hover: #373e47;
-
-    --color-border-default: #30363d;
-    --color-border-hover: #484f58;
-    --color-border-active: #1f6feb;
-
-    --color-text-primary: #c9d1d9;
-    --color-text-secondary: #8b949e;
-    --color-text-active: #ffffff;
-    --color-text-danger: #f85149;
-
-    --color-accent-blue: #58a6ff;
-
-    /* Spacing */
-    --spacing-xs: 4px;
-    --spacing-sm: 6px;
-    --spacing-md: 8px;
-    --spacing-lg: 10px;
-    --spacing-xl: 12px;
-
-    /* Border Radius */
-    --radius-sm: 3px;
-    --radius-md: 4px;
-    --radius-lg: 6px;
-
-    /* Typography */
-    --font-size-base: 13px;
-    --font-weight-normal: 400;
-    --font-weight-medium: 500;
-    --line-height-base: 1.5;
-
-    /* Transitions */
-    --transition-fast: 0.15s ease;
-    --transition-base: 0.2s ease;
-    --transition-smooth: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-
-    /* Sizes */
-    --icon-size-sm: 16px;
-    --icon-size-md: 20px;
-    --scrollbar-width: 8px;
-    --active-indicator-width: 3px;
-}
-
-/* ========================================
    Container Layout
    ======================================== */
 .vertical-tabs-container {
-    flex: 1;
     padding: 0;
     overflow-x: hidden;
     overflow-y: auto;
@@ -70,27 +16,6 @@
     gap: var(--spacing-xs);
     padding: var(--spacing-xl);
     padding-bottom: 0;
-}
-
-.vertical-tabs-footer {
-    padding: var(--spacing-xl);
-    padding-top: var(--spacing-md);
-}
-
-.new-tab-button {
-    display: flex;
-    gap: var(--spacing-md);
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding: var(--spacing-md) var(--spacing-xl);
-    font-size: var(--font-size-base);
-    font-weight: var(--font-weight-normal);
-    color: var(--color-text-secondary);
-    cursor: pointer;
-    background: transparent;
-    border: none;
-    transition: color var(--transition-smooth);
 }
 
 .new-tab-button:hover {
