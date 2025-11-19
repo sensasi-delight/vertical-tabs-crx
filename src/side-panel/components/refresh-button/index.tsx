@@ -2,7 +2,7 @@ import useActiveTab from '@/side-panel/hooks/use-active-tab'
 import style from './index.module.css'
 import { RefreshIcon } from './refresh-icon'
 
-export function RefreshButton() {
+export default function RefreshButton() {
     const activeTab = useActiveTab()
 
     const handleRefresh = () => {
