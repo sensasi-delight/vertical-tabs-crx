@@ -4,6 +4,7 @@ import Footer from './components/footer'
 import LinearProgress from './components/linear-progress'
 import NewTabButton from './components/new-tab-button'
 import RefreshButton from './components/refresh-button'
+import TipsButtonAndDialog from './components/tips-button-and-dialog'
 import VerticalTabs from './components/vertical-tabs'
 
 export default function App() {
@@ -18,6 +19,8 @@ export default function App() {
 
             <VerticalTabs />
             <NewTabButton />
+
+            <TipsButtonAndDialog />
 
             <Footer />
         </div>
