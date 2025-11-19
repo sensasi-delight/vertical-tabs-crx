@@ -9,7 +9,7 @@ export function useActiveTab() {
         if (isInitRef.current) return
         isInitRef.current = true
 
-        const handleTabActivated = ({ tabId }: chrome.tabs.TabActiveInfo) => {
+        const handleTabActivated = ({ tabId }: chrome.tabs.OnActivatedInfo) => {
             setActiveTabId(tabId)
         }
 
