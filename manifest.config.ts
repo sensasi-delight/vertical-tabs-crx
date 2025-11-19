@@ -24,6 +24,7 @@ export default defineManifest({
         },
     },
     description: pkg.description,
+    homepage_url: pkg.homepage,
     icons: {
         48: 'public/logo.png',
     },

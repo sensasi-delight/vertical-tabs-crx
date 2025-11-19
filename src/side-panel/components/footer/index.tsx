@@ -8,9 +8,18 @@ export default function Footer() {
         <footer className={style.footer}>
             <div className={style.content}>
                 <span className={style.text}>
-                    Vertical Tabs © {currentYear}
+                    <a
+                        className={style.link}
+                        href={pkg.homepage}
+                        rel="noopener noreferrer"
+                        target="_blank">
+                        Vertical Tabs
+                    </a>{' '}
+                    © {currentYear}
                 </span>
+
                 <span className={style.separator}>by</span>
+
                 <a
                     className={style.link}
                     href={pkg.author.url}
