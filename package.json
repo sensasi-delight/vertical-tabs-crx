@@ -1,9 +1,17 @@
 {
+    "author": {
+        "email": "zainadam.id@gmail.com",
+        "name": "🍕",
+        "url": "https://sensasi-delight.web.app"
+    },
+    "bugs": {
+        "url": "https://github.com/sensasi-delight/vertical-tabs-crx/issues"
+    },
     "dependencies": {
         "react": "^19.2.0",
         "react-dom": "^19.2.0"
     },
-    "description": "🧭 A Chrome extension that enhances the side navigation experience.",
+    "description": "A clean vertical tab sidebar for Chrome — fast, minimal, and fully usable in fullscreen 🧭",
     "devDependencies": {
         "@biomejs/biome": "2.3.6",
         "@crxjs/vite-plugin": "^2.2.1",
@@ -17,8 +25,25 @@
         "vite": "^7.2.2",
         "vite-plugin-zip-pack": "^1.2.4"
     },
-    "name": "sidenav-delight-crx",
+    "homepage": "https://vertical-tabs-delight.web.app",
+    "keywords": [
+        "vertical tabs",
+        "vertical tab sidebar",
+        "chrome sidebar tabs",
+        "fullscreen navigation",
+        "tab switcher",
+        "tab manager",
+        "productivity",
+        "chrome extension vertical tabs",
+        "stacked tabs",
+        "chrome fullscreen tabs"
+    ],
+    "name": "vertical-tabs-crx",
     "private": true,
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/sensasi-delight/vertical-tabs-crx"
+    },
     "scripts": {
         "build": "tsc -b && vite build",
         "dev": "vite",
