@@ -1,5 +1,3 @@
-import { URL_REGEX } from './constants'
-
 export function cleanUrl(url: string): string {
     return url
         .replace(/^(https?:\/\/)?(www\.)?/, '')
@@ -7,12 +5,17 @@ export function cleanUrl(url: string): string {
         .replace(/^chrome:\/\/(newtab)\/?$/, '')
 }
 
+export const URL_REGEX =
+    /^(https:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-?&=]*)*\/?$|^chrome:\/\/[\w-]+([/\w.-]*)*\/?$|^chrome-extension:\/\/[\w]+([/\w.-]*)*\/?$/
+
 export function isValidUrl(href: string): boolean {
     return URL_REGEX.test(href)
 }
 
 export function formatUrlForNavigation(url: string): string {
     const trimmedUrl = url.trim()
+
+    console.log('Formatting URL for navigation:', trimmedUrl)
 
     if (!isValidUrl(trimmedUrl)) {
         return `https://google.com/search?q=${encodeURIComponent(trimmedUrl)}`
