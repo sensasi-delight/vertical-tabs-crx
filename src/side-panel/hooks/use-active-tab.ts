@@ -15,10 +15,22 @@ export default function useActiveTab() {
             })
         }
 
+        const handleTabUpdated = (
+            _tabId: number,
+            _changeInfo: chrome.tabs.OnUpdatedInfo,
+            tab: chrome.tabs.Tab,
+        ) => {
+            if (tab.active) {
+                setActiveTab(tab)
+            }
+        }
+
         chrome.tabs.onActivated.addListener(handleTabActivated)
+        chrome.tabs.onUpdated.addListener(handleTabUpdated)
 
         return () => {
             chrome.tabs.onActivated.removeListener(handleTabActivated)
+            chrome.tabs.onUpdated.removeListener(handleTabUpdated)
         }
     }, [])
 
