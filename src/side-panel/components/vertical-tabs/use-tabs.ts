@@ -36,5 +36,5 @@ export default function useTabs() {
         }
     }, [])
 
-    return [tabs, setTabs] as const
+    return tabs
 }
