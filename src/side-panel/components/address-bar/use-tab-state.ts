@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import useActiveTab from '@/side-panel/hooks/use-active-tab'
+import { useActiveTab } from '@/side-panel/atoms/active-tab'
 import type { UseTabStateReturn } from './types'
 import { cleanUrl } from './utils'
 

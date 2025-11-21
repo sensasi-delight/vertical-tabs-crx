@@ -1,4 +1,4 @@
-import useActiveTab from '@/side-panel/hooks/use-active-tab'
+import { useActiveTab } from '@/side-panel/atoms/active-tab'
 import style from './index.module.css'
 import { RefreshIcon } from './refresh-icon'
 

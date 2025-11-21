@@ -7,7 +7,10 @@ import RefreshButton from './components/refresh-button'
 import TipsButtonAndDialog from './components/tips-button-and-dialog'
 import VerticalTabs from './components/vertical-tabs'
 
+import { useInitializeTabs } from './hooks/use-initialize-tabs'
+
 export default function App() {
+    useInitializeTabs()
     return (
         <div className={style.container}>
             <div className={style['top-bar-container']}>

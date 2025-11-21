@@ -1,8 +1,8 @@
-import useActiveTab from '../../hooks/use-active-tab'
+import { useActiveTab } from '@/side-panel/atoms/active-tab'
+import { useTabs } from '@/side-panel/atoms/tabs'
 import style from './index.module.css'
 import { TabItem } from './tab-item'
 import { useDragDrop } from './use-drag-drop'
-import useTabs from './use-tabs'
 
 export default function VerticalTabs() {
     const tabs = useTabs()

@@ -1,4 +1,4 @@
-import useActiveTab from '@/side-panel/hooks/use-active-tab'
+import { useActiveTab } from '@/side-panel/atoms/active-tab'
 import style from './address-bar-icon.module.css'
 
 export function AddressBarIcon() {

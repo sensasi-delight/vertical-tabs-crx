@@ -8,6 +8,7 @@
         "url": "https://github.com/sensasi-delight/vertical-tabs-crx/issues"
     },
     "dependencies": {
+        "jotai": "^2.15.1",
         "react": "^19.2.0",
         "react-dom": "^19.2.0"
     },
@@ -45,7 +46,7 @@
         "url": "https://github.com/sensasi-delight/vertical-tabs-crx"
     },
     "scripts": {
-        "build": "tsc -b && vite build",
+        "build": "tsc --noEmit && vite build",
         "dev": "vite",
         "lint": "biome check",
         "lint:fix": "biome check --write",
