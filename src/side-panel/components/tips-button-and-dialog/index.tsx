@@ -14,7 +14,7 @@ export default function TipsButton() {
     }
 
     return (
-        <div className={style['tips-container']}>
+        <div>
             <button
                 aria-label="Show tips"
                 className={style.button}
