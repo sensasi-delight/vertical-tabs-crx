@@ -11,7 +11,7 @@ export default function ShortcutsButton() {
             className={style.button}
             onClick={openShortcuts}
             type="button">
-            <span className={style.icon}>⌨️</span>
+            <span className={style.icon}>⚙️</span>
             Change Shortcut
         </button>
     )
