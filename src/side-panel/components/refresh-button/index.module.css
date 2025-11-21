@@ -3,23 +3,23 @@
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    width: 24px;
-    height: 24px;
+    width: var(--icon-size-lg);
+    height: var(--icon-size-lg);
     padding: 0;
-    color: #8b949e;
+    color: var(--color-text-secondary);
     cursor: pointer;
     background: transparent;
     border: none;
-    border-radius: 4px;
-    transition: all 0.2s ease;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-base);
 }
 
 .refresh-button:hover {
-    color: #c9d1d9;
-    background: #2d333b;
+    color: var(--color-text-primary);
+    background: var(--color-bg-hover);
 }
 
 .refresh-button:active {
-    background: #373e47;
+    background: var(--color-bg-active-hover);
     transform: scale(0.95);
 }

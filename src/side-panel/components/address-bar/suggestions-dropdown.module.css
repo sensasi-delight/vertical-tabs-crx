@@ -1,12 +1,12 @@
 .dropdown {
     position: absolute;
     top: 100%;
-    right: 12px;
-    left: 12px;
-    margin-top: 4px;
+    right: var(--spacing-xl);
+    left: var(--spacing-xl);
+    margin-top: var(--spacing-xs);
     overflow-y: auto;
-    background: #161b22;
-    border: 1px solid #30363d;
-    border-radius: 6px;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-lg);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }

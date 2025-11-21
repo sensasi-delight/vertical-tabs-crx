@@ -1,12 +1,12 @@
 .button {
     display: flex;
-    gap: 6px;
+    gap: var(--spacing-sm);
     align-items: center;
     justify-content: center;
-    padding: 6px 10px;
-    font-size: 12px;
-    font-weight: 400;
-    color: #8b949e;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-normal);
+    color: var(--color-text-secondary);
     cursor: pointer;
     outline: none;
     background-color: transparent;
@@ -16,8 +16,8 @@
 }
 
 .button:hover {
-    color: #c9d1d9;
-    background-color: rgba(110, 118, 129, 0.1);
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-hover);
 }
 
 .button:focus-visible {

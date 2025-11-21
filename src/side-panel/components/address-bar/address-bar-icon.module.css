@@ -3,7 +3,7 @@
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    width: 24px;
-    height: 24px;
-    color: #8b949e;
+    width: var(--icon-size-lg);
+    height: var(--icon-size-lg);
+    color: var(--color-text-secondary);
 }

@@ -10,9 +10,9 @@
     top: 0;
     z-index: 10;
     display: flex;
-    gap: 8px;
+    gap: var(--spacing-md);
     align-items: center;
-    padding: 12px;
-    background: #0d1117;
-    border-bottom: 1px solid #30363d;
+    padding: var(--spacing-xl);
+    background: var(--color-bg-primary);
+    border-bottom: 1px solid var(--color-border-default);
 }

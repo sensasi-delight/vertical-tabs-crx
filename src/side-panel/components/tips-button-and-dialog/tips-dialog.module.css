@@ -17,6 +17,7 @@
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -40,6 +41,7 @@
         transform: translateY(20px);
         opacity: 0;
     }
+
     to {
         transform: translateY(0);
         opacity: 1;
@@ -51,42 +53,42 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 16px 20px;
+    padding: var(--spacing-2xl) var(--spacing-xxl);
     border-bottom: 1px solid var(--color-border-default);
 }
 
 .title {
     margin: 0;
-    font-size: 18px;
+    font-size: var(--font-size-lg);
     font-weight: 600;
-    color: #c9d1d9;
+    color: var(--color-text-primary);
 }
 
 .closeButton {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 4px;
-    color: #8b949e;
+    padding: var(--spacing-xs);
+    color: var(--color-text-secondary);
     cursor: pointer;
     background: none;
     border: none;
-    border-radius: 4px;
+    border-radius: var(--radius-md);
     transition: var(--transition-smooth);
 }
 
 .closeButton:hover {
-    color: #c9d1d9;
+    color: var(--color-text-primary);
     background-color: var(--color-bg-primary);
 }
 
 /* Dialog Content */
 .content {
-    padding: 20px;
+    padding: var(--spacing-xxl);
 }
 
 .tip {
-    margin-bottom: 20px;
+    margin-bottom: var(--spacing-xxl);
 }
 
 .tip:last-child {
@@ -95,30 +97,30 @@
 
 .tipTitle {
     display: flex;
-    gap: 8px;
+    gap: var(--spacing-md);
     align-items: center;
-    margin: 0 0 8px 0;
-    font-size: 14px;
+    margin: 0 0 var(--spacing-md) 0;
+    font-size: var(--font-size-md);
     font-weight: 600;
     color: var(--color-accent-blue);
 }
 
 .tipIcon {
-    font-size: 16px;
+    font-size: var(--font-size-xl);
 }
 
 .tipDescription {
     margin: 0;
-    font-size: 13px;
+    font-size: var(--font-size-base);
     line-height: 1.6;
-    color: #8b949e;
+    color: var(--color-text-secondary);
 }
 
 .tipCode {
     padding: 2px 6px;
     font-family: "Courier New", monospace;
-    font-size: 12px;
-    color: #58a6ff;
+    font-size: var(--font-size-sm);
+    color: var(--color-accent-blue);
     background-color: var(--color-bg-primary);
     border-radius: 3px;
 }
@@ -130,5 +132,5 @@
 }
 
 .tipLink:hover {
-    color: #79c0ff;
+    color: var(--color-accent-blue-hover);
 }
