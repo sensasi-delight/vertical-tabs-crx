@@ -11,6 +11,7 @@ export function SuggestionsDropdown({
     selectedIndex,
     onSearchClick,
     onHistoryClick,
+    onDelete,
     onItemHover,
 }: {
     dropdownRef: React.RefObject<HTMLDivElement | null>
@@ -20,6 +21,7 @@ export function SuggestionsDropdown({
     selectedIndex: number
     onSearchClick: () => void
     onHistoryClick: (url: string) => void
+    onDelete: (url: string) => void
     onItemHover: (index: number) => void
 }) {
     return (
@@ -42,6 +44,7 @@ export function SuggestionsDropdown({
                         item={item}
                         key={`${item.url}-${item.lastVisitTime}`}
                         onClick={() => item.url && onHistoryClick(item.url)}
+                        onDelete={() => item.url && onDelete(item.url)}
                         onMouseEnter={() => onItemHover(itemIndex)}
                     />
                 )

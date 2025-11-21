@@ -15,4 +15,5 @@ export interface UseDropdownReturn {
 export interface UseSuggestionsReturn {
     suggestions: chrome.history.HistoryItem[]
     hasSearchQuery: boolean
+    deleteSuggestion: (url: string) => void
 }

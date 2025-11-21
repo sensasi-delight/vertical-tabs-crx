@@ -18,7 +18,7 @@ export default function AddressBar() {
         setSelectedIndex,
         dropdownRef,
     } = useDropdown(inputRef)
-    const { suggestions, hasSearchQuery } = useSuggestions(
+    const { suggestions, hasSearchQuery, deleteSuggestion } = useSuggestions(
         inputValue,
         showDropdown,
     )
@@ -139,6 +139,7 @@ export default function AddressBar() {
                 <SuggestionsDropdown
                     dropdownRef={dropdownRef}
                     hasSearchQuery={hasSearchQuery}
+                    onDelete={deleteSuggestion}
                     onHistoryClick={handleHistoryClick}
                     onItemHover={setSelectedIndex}
                     onSearchClick={handleSearchClick}

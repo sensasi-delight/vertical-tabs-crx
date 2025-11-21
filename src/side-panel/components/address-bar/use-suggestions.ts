@@ -49,7 +49,13 @@ export function useSuggestions(
 
     const hasSearchQuery = trimmedUrl.length > 0 && !isValidUrl(trimmedUrl)
 
-    return { hasSearchQuery, suggestions }
+    const deleteSuggestion = (url: string) => {
+        chrome.history.deleteUrl({ url }, () => {
+            setSuggestions(prev => prev.filter(item => item.url !== url))
+        })
+    }
+
+    return { deleteSuggestion, hasSearchQuery, suggestions }
 }
 
 const sortingFunction = (

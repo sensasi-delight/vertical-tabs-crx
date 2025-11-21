@@ -2,7 +2,6 @@
     display: flex;
     gap: var(--spacing-md);
     align-items: center;
-    width: 100%;
     padding: var(--spacing-md) var(--spacing-xl);
     font-size: var(--font-size-base);
     color: var(--color-text-primary);
@@ -47,4 +46,31 @@
     font-size: 11px;
     color: #8b949e;
     white-space: nowrap;
+}
+
+.deleteButton {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: var(--icon-size-md);
+    height: var(--icon-size-md);
+    padding: 0;
+    margin-left: var(--spacing-sm);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-sm);
+    opacity: 0;
+    transition: all var(--transition-fast);
+}
+
+.item:hover .deleteButton {
+    opacity: 1;
+}
+
+.deleteButton:hover {
+    color: var(--color-text-danger);
+    background: var(--color-bg-hover);
 }
