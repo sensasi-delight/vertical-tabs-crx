@@ -23,7 +23,7 @@ export default defineManifest({
             },
         },
     },
-    description: pkg.description,
+    description: `Press CTRL + SHIFT + X to quickly open the side panel 🧭 ${pkg.description}`,
     homepage_url: pkg.homepage,
     icons: {
         48: 'public/logo.png',
