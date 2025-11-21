@@ -20,7 +20,7 @@
 
 .item:hover,
 .item.selected {
-    background: #1c2128;
+    background: var(--color-bg-active-hover);
 }
 
 .icon {
