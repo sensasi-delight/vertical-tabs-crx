@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import style from './app.module.css'
 import AddressBar from './components/address-bar'
 import Footer from './components/footer'
@@ -12,6 +13,21 @@ import { useInitializeTabs } from './hooks/use-initialize-tabs'
 
 export default function App() {
     useInitializeTabs()
+
+    useEffect(() => {
+        const handleMessage = (message: { type: string }) => {
+            if (message.type === 'CLOSE_SIDE_PANEL') {
+                window.close()
+            }
+        }
+
+        chrome.runtime.onMessage.addListener(handleMessage)
+
+        return () => {
+            chrome.runtime.onMessage.removeListener(handleMessage)
+        }
+    }, [])
+
     return (
         <div className={style.container}>
             <div className={style['top-bar-container']}>

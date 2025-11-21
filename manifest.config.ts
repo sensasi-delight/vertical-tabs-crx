@@ -8,22 +8,22 @@ export default defineManifest({
         default_icon: {
             48: 'public/logo.png',
         },
-        default_title: `Open side panel — ${SHORT_NAME}`,
+        default_title: `Toggle the side panel — ${SHORT_NAME} by Sensasi Delight`,
     },
     author: pkg.author,
     background: {
         service_worker: 'src/service-worker.ts',
     },
     commands: {
-        OPEN_SIDE_PANEL: {
-            description: 'Open the side panel',
+        TOGGLE_SIDE_PANEL: {
+            description: 'Toggle the side panel',
             suggested_key: {
-                default: 'Ctrl+Shift+X',
-                mac: 'Command+Shift+X',
+                default: 'Alt+X',
+                mac: 'Alt+X',
             },
         },
     },
-    description: `Press CTRL + SHIFT + X to quickly open the side panel 🧭 ${pkg.description}`,
+    description: `Press ALT + X to quickly toggle the side panel 🧭 ${pkg.description}`,
     homepage_url: pkg.homepage,
     icons: {
         48: 'public/logo.png',

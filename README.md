@@ -21,7 +21,7 @@ A clean and simple Chrome extension that shows your tabs in a vertical sidebar. 
 ✨ **Vertical Sidebar** - All your tabs in a clean list  
 🎯 **Smart Address Bar** - Search history or navigate to any URL  
 🖱️ **Drag & Drop** - Reorder tabs easily  
-⌨️ **Keyboard Shortcut** - Press `Ctrl+Shift+X` to open  
+⌨️ **Keyboard Shortcut** - Press `Alt+X` to open/close  
 🔄 **Auto Sync** - Changes update instantly  
 🌙 **Dark Theme** - Easy on your eyes
 
@@ -57,7 +57,7 @@ bun build
 
 ## How to Use
 
-1. **Open Sidebar** - Click the extension icon or press `Ctrl+Shift+X`
+1. **Toggle Sidebar** - Click the extension icon or press `Alt+X`
 2. **Switch Tabs** - Click any tab in the list
 3. **New Tab** - Click the + button at the top
 4. **Navigate** - Type a URL or search term in the address bar

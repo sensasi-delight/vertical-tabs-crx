@@ -9,8 +9,8 @@ const TIPS: {
     {
         description: (
             <>
-                Press <span className={style.tipCode}>CTRL + Shift + X</span> to
-                quickly open the vertical tabs panel.
+                Press <span className={style.tipCode}>ALT + X</span> to quickly
+                open or close the vertical tabs panel.
             </>
         ),
         icon: '⌨️',
