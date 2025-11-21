@@ -1,5 +1,6 @@
 import { type DragEvent, useState } from 'react'
-import type { TabId } from './types'
+
+type TabId = chrome.tabs.Tab['id']
 
 export interface UseDragDropReturn {
     draggedTabId: TabId

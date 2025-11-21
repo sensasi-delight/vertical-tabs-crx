@@ -1,9 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
-import type { UseDropdownReturn } from './types'
 
 export function useDropdown(
     inputRef: React.RefObject<HTMLInputElement | null>,
-): UseDropdownReturn {
+): {
+    showDropdown: boolean
+    setShowDropdown: (show: boolean) => void
+    selectedIndex: number
+    setSelectedIndex: React.Dispatch<React.SetStateAction<number>>
+    dropdownRef: React.RefObject<HTMLDivElement | null>
+} {
     const [showDropdown, setShowDropdown] = useState(false)
     const [selectedIndex, setSelectedIndex] = useState(-1)
     const dropdownRef = useRef<HTMLDivElement>(null)

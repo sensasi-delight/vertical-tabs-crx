@@ -1,4 +1,3 @@
-import { ICON_SIZES } from './constants'
 import style from './index.module.css'
 
 export function PlaceholderIcon() {
@@ -7,9 +6,9 @@ export function PlaceholderIcon() {
             <svg
                 aria-hidden="true"
                 fill="none"
-                height={ICON_SIZES.FAVICON}
+                height={16}
                 viewBox="0 0 16 16"
-                width={ICON_SIZES.FAVICON}>
+                width={16}>
                 <circle cx="8" cy="8" r="7" stroke="#444" strokeWidth="1.5" />
             </svg>
         </div>
@@ -21,9 +20,9 @@ export function CloseIcon() {
         <svg
             aria-hidden="true"
             fill="none"
-            height={ICON_SIZES.CLOSE_BUTTON}
+            height={12}
             viewBox="0 0 12 12"
-            width={ICON_SIZES.CLOSE_BUTTON}>
+            width={12}>
             <path
                 d="M1 1L11 11M11 1L1 11"
                 stroke="currentColor"

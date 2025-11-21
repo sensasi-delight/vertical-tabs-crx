@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useActiveTab } from '@/side-panel/atoms/active-tab'
-import type { UseTabStateReturn } from './types'
 import { cleanUrl } from './utils'
 
-export function useTabState(): UseTabStateReturn {
+export function useTabState(): {
+    activeTab: chrome.tabs.Tab | undefined
+    inputValue: string
+    setInputValue: (value: string) => void
+} {
     const activeTab = useActiveTab()
     const [inputValue, setInputValue] = useState('')
 

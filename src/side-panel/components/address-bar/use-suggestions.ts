@@ -1,12 +1,17 @@
 import { useEffect, useState } from 'react'
-import { MAX_HISTORY_SUGGESTIONS, SEARCH_DEBOUNCE_MS } from './constants'
-import type { UseSuggestionsReturn } from './types'
 import { isValidUrl } from './utils'
+
+const MAX_HISTORY_SUGGESTIONS = 7 // 7 history + 1 Google search = 8 total
+const SEARCH_DEBOUNCE_MS = 150
 
 export function useSuggestions(
     inputValue: string,
     showDropdown: boolean,
-): UseSuggestionsReturn {
+): {
+    suggestions: chrome.history.HistoryItem[]
+    hasSearchQuery: boolean
+    deleteSuggestion: (url: string) => void
+} {
     const [suggestions, setSuggestions] = useState<
         chrome.history.HistoryItem[]
     >([])

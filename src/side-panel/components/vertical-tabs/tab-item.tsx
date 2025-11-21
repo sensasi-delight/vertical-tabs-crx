@@ -1,9 +1,12 @@
-import { type KeyboardEvent, type MouseEvent, useState } from 'react'
-import { ARIA_LABELS, KEYBOARD_KEYS, TAB_TITLE_FALLBACK } from './constants'
+import { useState } from 'react'
 import { CloseIcon, PlaceholderIcon } from './icons'
 import style from './index.module.css'
-import type { TabCloseButtonProps, TabItemProps } from './types'
 import { useTabActions } from './use-tab-actions'
+
+const KEYBOARD_KEYS = {
+    ENTER: 'Enter',
+    SPACE: ' ',
+} as const
 
 export function TabItem({
     tab,
@@ -14,21 +17,30 @@ export function TabItem({
     onDragOver,
     onDragEnd,
     onDrop,
-}: TabItemProps) {
+}: {
+    tab: chrome.tabs.Tab
+    isActive: boolean
+    isDragging: boolean
+    isDragOver: boolean
+    onDragStart: (event: React.DragEvent<HTMLDivElement>) => void
+    onDragOver: (event: React.DragEvent<HTMLDivElement>) => void
+    onDragEnd: () => void
+    onDrop: (event: React.DragEvent<HTMLDivElement>) => void
+}) {
     const { activateTab } = useTabActions()
 
     const handleClick = () => {
         activateTab(tab.id)
     }
 
-    const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
         const { key } = event
         if (key === KEYBOARD_KEYS.ENTER || key === KEYBOARD_KEYS.SPACE) {
             activateTab(tab.id)
         }
     }
 
-    const tabTitle = tab.title ?? tab.url ?? TAB_TITLE_FALLBACK
+    const tabTitle = tab.title ?? tab.url ?? 'Untitled'
     const tabClassName = `${style['tab-item']} ${isActive ? style.active : ''} ${isDragging ? style.dragging : ''} ${isDragOver ? style['drag-over'] : ''}`
 
     return (
@@ -74,10 +86,10 @@ function TabFavicon({ url }: { url?: string }) {
     )
 }
 
-function TabCloseButton({ tabId }: TabCloseButtonProps) {
+function TabCloseButton({ tabId }: { tabId: chrome.tabs.Tab['id'] }) {
     const { closeTab } = useTabActions()
 
-    const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation()
         event.preventDefault()
         closeTab(tabId)
@@ -85,7 +97,7 @@ function TabCloseButton({ tabId }: TabCloseButtonProps) {
 
     return (
         <button
-            aria-label={ARIA_LABELS.CLOSE_TAB}
+            aria-label="Close tab"
             className={style['tab-close']}
             onClick={handleClick}
             type="button">

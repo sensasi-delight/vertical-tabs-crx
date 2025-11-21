@@ -1,5 +1,6 @@
 import { useCallback } from 'react'
-import type { TabId } from './types'
+
+type TabId = chrome.tabs.Tab['id']
 
 export function useTabActions() {
     const activateTab = useCallback((tabId: TabId) => {
