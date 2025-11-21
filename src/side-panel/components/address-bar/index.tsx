@@ -1,4 +1,4 @@
-import { Activity, useRef } from 'react'
+import { Activity, useEffect, useRef } from 'react'
 import { AddressBarIcon } from './address-bar-icon'
 import style from './index.module.css'
 import { SearchInput } from './search-input'
@@ -23,6 +23,18 @@ export default function AddressBar() {
         showDropdown,
     )
 
+    useEffect(() => {
+        const handleOnCreated = () => {
+            inputRef.current?.focus()
+        }
+
+        chrome.tabs.onCreated.addListener(handleOnCreated)
+
+        return () => {
+            chrome.tabs.onCreated.removeListener(handleOnCreated)
+        }
+    }, [])
+
     const totalItems = hasSearchQuery
         ? suggestions.length + 1
         : suggestions.length
@@ -34,6 +46,10 @@ export default function AddressBar() {
 
         const formattedUrl = formatUrlForNavigation(url)
         chrome.tabs.update(activeTab.id, { url: formattedUrl })
+
+        if (!activeTab.active) {
+            chrome.tabs.update(activeTab.id, { active: true })
+        }
     }
 
     const handleInputChange = (value: string) => {
