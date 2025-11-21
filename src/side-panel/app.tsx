@@ -3,9 +3,9 @@ import AddressBar from './components/address-bar'
 import Footer from './components/footer'
 import LinearProgress from './components/linear-progress'
 import NewTabButton from './components/new-tab-button'
+import RandomTip from './components/random-tip'
 import RefreshButton from './components/refresh-button'
 import ShortcutSettingButton from './components/shortcut-setting-button'
-import TipsButtonAndDialog from './components/tips-button-and-dialog'
 import VerticalTabs from './components/vertical-tabs'
 
 import { useRegisterListener } from './use-register-listener'
@@ -18,15 +18,15 @@ export default function App() {
             <div className={style['top-bar-container']}>
                 <RefreshButton />
                 <AddressBar />
-
                 <LinearProgress />
             </div>
 
             <VerticalTabs />
+
             <NewTabButton />
 
-            <div className={style['bottom-actions']}>
-                <TipsButtonAndDialog />
+            <div className={style['middle-container']}>
+                <RandomTip />
                 <ShortcutSettingButton />
             </div>
 

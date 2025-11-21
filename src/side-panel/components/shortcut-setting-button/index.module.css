@@ -10,14 +10,18 @@
     cursor: pointer;
     outline: none;
     background-color: transparent;
-    border: none;
+    border-color: var(--color-border-default);
+    border-style: solid;
+    border-width: 1px;
     border-radius: var(--radius-lg);
+    opacity: 0.5;
     transition: var(--transition-smooth);
 }
 
 .button:hover {
     color: var(--color-text-primary);
     background-color: var(--color-bg-hover);
+    opacity: 1;
 }
 
 .button:focus-visible {
