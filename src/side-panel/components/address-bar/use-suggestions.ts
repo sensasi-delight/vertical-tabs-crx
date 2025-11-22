@@ -25,9 +25,14 @@ export function useSuggestions(
         const searchHistory = () => {
             const trimmedInput = inputValue.trim().toLowerCase()
 
+            if (!trimmedInput) {
+                setSuggestions([])
+                return
+            }
+
             chrome.history.search(
                 {
-                    maxResults: MAX_HISTORY_SUGGESTIONS * 2,
+                    maxResults: MAX_HISTORY_SUGGESTIONS * 5, // Fetch more to allow filtering
                     startTime: 0,
                     text: inputValue.trim(),
                 },
@@ -36,8 +41,11 @@ export function useSuggestions(
                         sortingFunction(a, b, trimmedInput),
                     )
 
+                    const filteredResults =
+                        filterSimilarSuggestions(sortedResults)
+
                     setSuggestions(
-                        sortedResults.slice(0, MAX_HISTORY_SUGGESTIONS),
+                        filteredResults.slice(0, MAX_HISTORY_SUGGESTIONS),
                     )
                 },
             )
@@ -63,37 +71,69 @@ export function useSuggestions(
     return { deleteSuggestion, hasSearchQuery, suggestions }
 }
 
+function filterSimilarSuggestions(
+    items: chrome.history.HistoryItem[],
+): chrome.history.HistoryItem[] {
+    const seenUrls = new Set<string>()
+    const seenTitles = new Set<string>()
+
+    return items.filter(item => {
+        if (!item.url) return false
+
+        // Normalize URL: remove protocol, www, and trailing slash
+        const normalizedUrl = item.url
+            .replace(/^(https?:\/\/)?(www\.)?/, '')
+            .replace(/\/$/, '')
+
+        if (seenUrls.has(normalizedUrl)) return false
+        seenUrls.add(normalizedUrl)
+
+        // Filter by title similarity if title exists
+        // This prevents showing multiple pages with the exact same title
+        if (item.title) {
+            const normalizedTitle = item.title.trim().toLowerCase()
+            if (seenTitles.has(normalizedTitle)) return false
+            seenTitles.add(normalizedTitle)
+        }
+
+        return true
+    })
+}
+
 const sortingFunction = (
     a: chrome.history.HistoryItem,
     b: chrome.history.HistoryItem,
     trimmedInput: string,
 ) => {
-    const aUrl = (a.url || '').toLowerCase()
-    const bUrl = (b.url || '').toLowerCase()
+    const aUrl = (a.url || '')
+        .toLowerCase()
+        .replace(/^(https?:\/\/)?(www\.)?/, '')
+    const bUrl = (b.url || '')
+        .toLowerCase()
+        .replace(/^(https?:\/\/)?(www\.)?/, '')
     const aTitle = (a.title || '').toLowerCase()
     const bTitle = (b.title || '').toLowerCase()
 
-    const aUrlStartsWith =
-        aUrl.includes(`://${trimmedInput}`) ||
-        aUrl.includes(`://www.${trimmedInput}`)
-    const bUrlStartsWith =
-        bUrl.includes(`://${trimmedInput}`) ||
-        bUrl.includes(`://www.${trimmedInput}`)
+    // 1. Exact match (highest priority)
+    if (aUrl === trimmedInput && bUrl !== trimmedInput) return -1
+    if (bUrl === trimmedInput && aUrl !== trimmedInput) return 1
 
-    if (aUrlStartsWith && !bUrlStartsWith) return -1
-    if (!aUrlStartsWith && bUrlStartsWith) return 1
+    // 2. Starts with URL (very high priority)
+    const aStartsWith = aUrl.startsWith(trimmedInput)
+    const bStartsWith = bUrl.startsWith(trimmedInput)
+    if (aStartsWith && !bStartsWith) return -1
+    if (!aStartsWith && bStartsWith) return 1
 
-    const aTitleStartsWith = aTitle.startsWith(trimmedInput)
-    const bTitleStartsWith = bTitle.startsWith(trimmedInput)
+    // 3. Starts with Title (high priority)
+    const aTitleStart = aTitle.startsWith(trimmedInput)
+    const bTitleStart = bTitle.startsWith(trimmedInput)
+    if (aTitleStart && !bTitleStart) return -1
+    if (!aTitleStart && bTitleStart) return 1
 
-    if (aTitleStartsWith && !bTitleStartsWith) return -1
-    if (!aTitleStartsWith && bTitleStartsWith) return 1
+    // 4. Visit Count (higher is better)
+    const visitDiff = (b.visitCount || 0) - (a.visitCount || 0)
+    if (visitDiff !== 0) return visitDiff
 
-    const aUrlIncludes = aUrl.includes(trimmedInput)
-    const bUrlIncludes = bUrl.includes(trimmedInput)
-
-    if (aUrlIncludes && !bUrlIncludes) return -1
-    if (!aUrlIncludes && bUrlIncludes) return 1
-
-    return (b.visitCount || 0) - (a.visitCount || 0)
+    // 5. Recency (newer is better)
+    return (b.lastVisitTime || 0) - (a.lastVisitTime || 0)
 }
