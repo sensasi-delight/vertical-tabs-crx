@@ -112,4 +112,19 @@ const TIPS: {
             </>
         ),
     },
+    {
+        icon: '💖',
+        no: 11,
+        value: (
+            <>
+                Support us on{' '}
+                <a
+                    href="https://github.com/sponsors/sensasi-delight"
+                    rel="noopener noreferrer"
+                    target="_blank">
+                    GitHub Sponsors
+                </a>
+            </>
+        ),
+    },
 ]
