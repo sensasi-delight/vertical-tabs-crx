@@ -23,6 +23,12 @@ export default defineManifest({
             },
         },
     },
+    content_scripts: [
+        {
+            js: ['src/content-script/index.tsx'],
+            matches: ['<all_urls>'],
+        },
+    ],
     description: `Press ALT + X to quickly toggle the side panel 🧭 ${pkg.description}`,
     homepage_url: pkg.homepage,
     icons: {

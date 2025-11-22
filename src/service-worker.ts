@@ -42,3 +42,15 @@ const closeSidePanel = () => {
         isOpen = false
     })
 }
+
+chrome.runtime.onMessage.addListener((message, sender) => {
+    if (message.type === 'TOGGLE_SIDE_PANEL_FROM_CONTENT') {
+        if (!sender.tab?.id || isOpen === 'processing') return
+
+        if (isOpen) {
+            closeSidePanel()
+        } else {
+            openSidePanel(sender.tab.id, sender.tab.windowId)
+        }
+    }
+})
