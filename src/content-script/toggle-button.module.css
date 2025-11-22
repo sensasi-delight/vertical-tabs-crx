@@ -17,7 +17,6 @@
     color: white;
     cursor: pointer;
     outline: none;
-    background-color: rgba(32, 33, 36, 0.6);
     border: none;
     border-radius: 0 8px 8px 0;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
@@ -27,7 +26,6 @@
 }
 
 .button:hover {
-    background-color: rgba(26, 115, 232, 0.9);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     transform: translateY(-50%) translateX(0);
 }
