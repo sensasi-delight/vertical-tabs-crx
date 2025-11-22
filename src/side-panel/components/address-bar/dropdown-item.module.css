@@ -1,7 +1,9 @@
 .item {
+    box-sizing: border-box;
     display: flex;
     gap: var(--spacing-md);
     align-items: center;
+    width: 100%;
     padding: var(--spacing-md) var(--spacing-xl);
     font-size: var(--font-size-base);
     color: var(--color-text-primary);
@@ -56,7 +58,6 @@
     width: var(--icon-size-md);
     height: var(--icon-size-md);
     padding: 0;
-    margin-left: var(--spacing-sm);
     color: var(--color-text-secondary);
     cursor: pointer;
     background: transparent;
