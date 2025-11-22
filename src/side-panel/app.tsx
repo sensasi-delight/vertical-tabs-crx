@@ -5,7 +5,7 @@ import LinearProgress from './components/linear-progress'
 import NewTabButton from './components/new-tab-button'
 import RandomTip from './components/random-tip'
 import RefreshButton from './components/refresh-button'
-import ShortcutSettingButton from './components/shortcut-setting-button'
+import SettingsButton from './components/settings-button'
 import VerticalTabs from './components/vertical-tabs'
 
 import { useRegisterListener } from './use-register-listener'
@@ -27,7 +27,7 @@ export default function App() {
 
             <div className={style['middle-container']}>
                 <RandomTip />
-                <ShortcutSettingButton />
+                <SettingsButton />
             </div>
 
             <Footer />

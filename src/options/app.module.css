@@ -228,3 +228,18 @@
     border: 1px solid var(--color-border-default);
     border-radius: 4px;
 }
+
+.shortcutLink {
+    margin-top: var(--spacing-sm);
+    font-size: 14px;
+    color: var(--color-accent);
+    text-decoration: none;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+.shortcutLink:hover {
+    color: var(--color-accent-hover);
+    text-decoration: underline;
+}

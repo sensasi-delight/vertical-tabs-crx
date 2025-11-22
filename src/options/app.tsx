@@ -116,6 +116,16 @@ export function App() {
                 <p className={style.footerText}>
                     You can also use <kbd>Alt+X</kbd> to toggle the side panel
                 </p>
+                <button
+                    className={style.shortcutLink}
+                    onClick={() =>
+                        chrome.tabs.create({
+                            url: 'chrome://extensions/shortcuts',
+                        })
+                    }
+                    type="button">
+                    Configure Keyboard Shortcuts
+                </button>
             </div>
         </div>
     )
