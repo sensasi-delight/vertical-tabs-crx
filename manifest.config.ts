@@ -36,7 +36,11 @@ export default defineManifest({
     },
     manifest_version: 3,
     name: `${SHORT_NAME} by Sensasi Delight — Sidebar & Fullscreen Navigation`,
-    permissions: ['history', 'sidePanel', 'tabs'],
+    options_ui: {
+        open_in_tab: false,
+        page: 'src/options/index.html',
+    },
+    permissions: ['history', 'sidePanel', 'tabs', 'storage'],
     short_name: SHORT_NAME,
     side_panel: {
         default_path: 'src/side-panel/index.html',
