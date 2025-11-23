@@ -89,6 +89,10 @@ export default function AddressBar() {
                 e.preventDefault()
                 setSelectedIndex((prev: number) => Math.max(prev - 1, -1))
                 break
+            case 'Tab':
+                e.preventDefault()
+                handleTabKey()
+                break
             case 'Escape':
                 setShowDropdown(false)
                 inputRef.current?.blur()
@@ -117,6 +121,31 @@ export default function AddressBar() {
 
         setShowDropdown(false)
         inputRef.current?.blur()
+    }
+
+    const handleTabKey = () => {
+        // Only autocomplete if a history item is selected (not the search query)
+        if (selectedIndex === -1) return
+        if (selectedIndex === 0 && hasSearchQuery) return
+
+        // Get the selected history item
+        const historyIndex = hasSearchQuery ? selectedIndex - 1 : selectedIndex
+        const selectedItem = suggestions[historyIndex]
+
+        if (selectedItem?.url) {
+            const url = selectedItem.url
+            // Fill the input with the full URL
+            setInputValue(url)
+            // Keep dropdown open and reset selection
+            setSelectedIndex(-1)
+            // Move cursor to end of input
+            setTimeout(() => {
+                if (inputRef.current) {
+                    inputRef.current.selectionStart = url.length
+                    inputRef.current.selectionEnd = url.length
+                }
+            }, 0)
+        }
     }
 
     return (
