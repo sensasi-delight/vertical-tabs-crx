@@ -154,6 +154,16 @@ export function App() {
             </div>
 
             <div className={style.footer}>
+                <p className={style.supportText}>
+                    Enjoying Vertical Tabs?{' '}
+                    <a
+                        className={style.supportLink}
+                        href="https://github.com/sponsors/sensasi-delight"
+                        rel="noopener noreferrer"
+                        target="_blank">
+                        Support us on GitHub Sponsors 💖
+                    </a>
+                </p>
                 <p className={style.footerText}>
                     You can also use <kbd>Alt+X</kbd> to toggle the side panel
                 </p>
