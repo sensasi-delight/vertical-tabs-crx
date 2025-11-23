@@ -89,35 +89,38 @@ export function App() {
                         </label>
                     </div>
 
-                    <div
-                        className={`${style.setting} ${style.settingWithSlider}`}>
-                        <div className={style.settingInfo}>
-                            <h2 className={style.settingTitle}>
-                                Button Opacity
-                            </h2>
-                            <p className={style.settingDescription}>
-                                Adjust the transparency of the toggle button
-                                (when not hovered)
-                            </p>
+                    <Activity mode={showToggleButton ? 'visible' : 'hidden'}>
+                        <div
+                            className={`${style.setting} ${style.settingWithSlider}`}>
+                            <div className={style.settingInfo}>
+                                <h2 className={style.settingTitle}>
+                                    Button Opacity
+                                </h2>
+                                <p className={style.settingDescription}>
+                                    Adjust the transparency of the toggle button
+                                    (when not hovered)
+                                </p>
+                            </div>
+                            <div className={style.sliderContainer}>
+                                <input
+                                    className={style.rangeSlider}
+                                    max="1"
+                                    min="0"
+                                    onChange={e =>
+                                        handleOpacityChange(
+                                            Number(e.target.value),
+                                        )
+                                    }
+                                    step="0.01"
+                                    type="range"
+                                    value={opacity}
+                                />
+                                <span className={style.opacityValue}>
+                                    {Math.round(opacity * 100)}%
+                                </span>
+                            </div>
                         </div>
-                        <div className={style.sliderContainer}>
-                            <input
-                                className={style.rangeSlider}
-                                disabled={!showToggleButton}
-                                max="1"
-                                min="0"
-                                onChange={e =>
-                                    handleOpacityChange(Number(e.target.value))
-                                }
-                                step="0.01"
-                                type="range"
-                                value={opacity}
-                            />
-                            <span className={style.opacityValue}>
-                                {Math.round(opacity * 100)}%
-                            </span>
-                        </div>
-                    </div>
+                    </Activity>
 
                     <div
                         className={`${style.setting} ${style.settingWithSeparator}`}>
