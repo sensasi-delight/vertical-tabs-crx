@@ -136,4 +136,9 @@ const TIPS: {
             </>
         ),
     },
+    {
+        icon: '⚙️',
+        no: 13,
+        value: 'You can toggle these random tips in Settings',
+    },
 ]

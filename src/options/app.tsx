@@ -1,18 +1,20 @@
-import { useEffect, useState } from 'react'
+import { Activity, useEffect, useState } from 'react'
 import style from './app.module.css'
 
 const STORAGE_KEY_SHOW = 'showToggleButton'
 const STORAGE_KEY_OPACITY = 'toggleButtonOpacity'
+const STORAGE_KEY_SHOW_TIPS = 'showRandomTips'
 
 export function App() {
     const [showToggleButton, setShowToggleButton] = useState(true)
     const [opacity, setOpacity] = useState(0.5)
+    const [showRandomTips, setShowRandomTips] = useState(true)
     const [saved, setSaved] = useState(false)
 
     useEffect(() => {
         // Load saved settings
         chrome.storage.sync.get(
-            [STORAGE_KEY_SHOW, STORAGE_KEY_OPACITY],
+            [STORAGE_KEY_SHOW, STORAGE_KEY_OPACITY, STORAGE_KEY_SHOW_TIPS],
             result => {
                 const showValue = result[STORAGE_KEY_SHOW]
                 if (typeof showValue === 'boolean') {
@@ -22,6 +24,11 @@ export function App() {
                 const opacityValue = result[STORAGE_KEY_OPACITY]
                 if (typeof opacityValue === 'number') {
                     setOpacity(opacityValue)
+                }
+
+                const showTipsValue = result[STORAGE_KEY_SHOW_TIPS]
+                if (typeof showTipsValue === 'boolean') {
+                    setShowRandomTips(showTipsValue)
                 }
             },
         )
@@ -38,6 +45,14 @@ export function App() {
     const handleOpacityChange = (value: number) => {
         setOpacity(value)
         chrome.storage.sync.set({ [STORAGE_KEY_OPACITY]: value }, () => {
+            setSaved(true)
+            setTimeout(() => setSaved(false), 2000)
+        })
+    }
+
+    const handleTipsToggle = (checked: boolean) => {
+        setShowRandomTips(checked)
+        chrome.storage.sync.set({ [STORAGE_KEY_SHOW_TIPS]: checked }, () => {
             setSaved(true)
             setTimeout(() => setSaved(false), 2000)
         })
@@ -103,13 +118,36 @@ export function App() {
                             </span>
                         </div>
                     </div>
+
+                    <div
+                        className={`${style.setting} ${style.settingWithSeparator}`}>
+                        <div className={style.settingInfo}>
+                            <h2 className={style.settingTitle}>
+                                Show Random Tips
+                            </h2>
+                            <p className={style.settingDescription}>
+                                Display helpful tips at the bottom of the side
+                                panel
+                            </p>
+                        </div>
+                        <label className={style.switch}>
+                            <input
+                                checked={showRandomTips}
+                                onChange={e =>
+                                    handleTipsToggle(e.target.checked)
+                                }
+                                type="checkbox"
+                            />
+                            <span className={style.slider} />
+                        </label>
+                    </div>
                 </div>
 
-                {saved && (
+                <Activity mode={saved ? 'visible' : 'hidden'}>
                     <div className={style.savedMessage}>
                         ✓ Settings saved successfully
                     </div>
-                )}
+                </Activity>
             </div>
 
             <div className={style.footer}>
