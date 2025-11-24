@@ -1,5 +1,6 @@
 import { Activity } from 'react'
 import style from './app.module.css'
+import { REPORT_ISSUE_URL } from './constants'
 import { SwitchItem } from './switch-item'
 import { useSettings } from './use-settings'
 
@@ -108,6 +109,23 @@ export function App() {
             </div>
 
             <div className={style.footer}>
+                <div className={style.section}>
+                    <div className={style.settingInfo}>
+                        <h2 className={style.settingTitle}>Help & Feedback</h2>
+                        <p className={style.settingDescription}>
+                            Report bugs, request features, or share your
+                            experience
+                        </p>
+                    </div>
+                    <a
+                        className={style.feedbackLink}
+                        href={REPORT_ISSUE_URL}
+                        rel="noopener noreferrer"
+                        target="_blank">
+                        📝 Submit Feedback
+                    </a>
+                </div>
+
                 <p className={style.supportText}>
                     Enjoying Vertical Tabs?{' '}
                     <a

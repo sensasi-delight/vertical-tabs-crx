@@ -31,3 +31,15 @@
     color: var(--color-text-primary);
     text-decoration: underline;
 }
+
+.feedbackLink {
+    color: var(--color-accent-blue);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+}
+
+.feedbackLink:hover {
+    color: var(--color-text-primary);
+    text-decoration: underline;
+    transform: translateY(-1px);
+}
