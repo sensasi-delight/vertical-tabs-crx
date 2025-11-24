@@ -1,4 +1,4 @@
-import { useSetActiveTab } from '../../atoms/active-tab'
+import { useSetActiveTab } from '@/side-panel/atoms/active-tab'
 import style from './index.module.css'
 
 export default function NewTabButton() {
@@ -6,7 +6,10 @@ export default function NewTabButton() {
 
     const createNewTab = () => {
         chrome.tabs.create({ active: false }, tab => {
-            setActiveTab(tab)
+            setActiveTab({
+                ...tab,
+                status: 'complete',
+            })
         })
     }
 
