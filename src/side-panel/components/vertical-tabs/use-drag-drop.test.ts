@@ -1,6 +1,18 @@
 import { act, renderHook } from '@testing-library/react'
+import type React from 'react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { useDragDrop } from './use-drag-drop'
+
+// Type-safe mock helper for DragEvent
+const createMockDragEvent = (): React.DragEvent<HTMLDivElement> =>
+    ({
+        dataTransfer: {
+            dropEffect: '',
+            effectAllowed: '',
+            setData: vi.fn(),
+        },
+        preventDefault: vi.fn(),
+    }) as unknown as React.DragEvent<HTMLDivElement>
 
 describe('useDragDrop', () => {
     const mockTabs: chrome.tabs.Tab[] = [
@@ -23,12 +35,7 @@ describe('useDragDrop', () => {
     describe('handleDragStart', () => {
         it('should set draggedTabId and activate the tab', () => {
             const { result } = renderHook(() => useDragDrop(mockTabs))
-            const mockEvent = {
-                dataTransfer: {
-                    effectAllowed: '',
-                    setData: vi.fn(),
-                },
-            } as any
+            const mockEvent = createMockDragEvent()
 
             act(() => {
                 result.current.handleDragStart(1)(mockEvent)
@@ -47,21 +54,11 @@ describe('useDragDrop', () => {
     describe('handleDragOver', () => {
         it('should set dragOverTabId when different from draggedTabId', () => {
             const { result } = renderHook(() => useDragDrop(mockTabs))
-            const mockEvent = {
-                dataTransfer: {
-                    dropEffect: '',
-                },
-                preventDefault: vi.fn(),
-            } as any
+            const mockEvent = createMockDragEvent()
 
             // First drag a tab
             act(() => {
-                result.current.handleDragStart(1)({
-                    dataTransfer: {
-                        effectAllowed: '',
-                        setData: vi.fn(),
-                    },
-                } as any)
+                result.current.handleDragStart(1)(createMockDragEvent())
             })
 
             // Then drag over another tab
@@ -76,20 +73,10 @@ describe('useDragDrop', () => {
 
         it('should not set dragOverTabId when same as draggedTabId', () => {
             const { result } = renderHook(() => useDragDrop(mockTabs))
-            const mockEvent = {
-                dataTransfer: {
-                    dropEffect: '',
-                },
-                preventDefault: vi.fn(),
-            } as any
+            const mockEvent = createMockDragEvent()
 
             act(() => {
-                result.current.handleDragStart(1)({
-                    dataTransfer: {
-                        effectAllowed: '',
-                        setData: vi.fn(),
-                    },
-                } as any)
+                result.current.handleDragStart(1)(createMockDragEvent())
             })
 
             act(() => {
@@ -106,21 +93,11 @@ describe('useDragDrop', () => {
 
             // Set up drag state
             act(() => {
-                result.current.handleDragStart(1)({
-                    dataTransfer: {
-                        effectAllowed: '',
-                        setData: vi.fn(),
-                    },
-                } as any)
+                result.current.handleDragStart(1)(createMockDragEvent())
             })
 
             act(() => {
-                result.current.handleDragOver(2)({
-                    dataTransfer: {
-                        dropEffect: '',
-                    },
-                    preventDefault: vi.fn(),
-                } as any)
+                result.current.handleDragOver(2)(createMockDragEvent())
             })
 
             // End drag
@@ -135,25 +112,24 @@ describe('useDragDrop', () => {
 
     describe('handleDrop', () => {
         it('should call chrome.tabs.move with correct parameters', () => {
-            const mockMove = vi.fn((_tabId, _moveProperties, callback) => {
-                callback?.()
-            })
+            const mockMove = vi.fn(
+                (
+                    _tabId: number,
+                    _moveProperties: chrome.tabs.MoveProperties,
+                    callback?: (tab: chrome.tabs.Tab) => void,
+                ) => {
+                    callback?.(mockTabs[0])
+                },
+            )
 
-            chrome.tabs.move = mockMove
+            chrome.tabs.move = mockMove as unknown as typeof chrome.tabs.move
 
             const { result } = renderHook(() => useDragDrop(mockTabs))
-            const mockEvent = {
-                preventDefault: vi.fn(),
-            } as any
+            const mockEvent = createMockDragEvent()
 
             // Set up drag state
             act(() => {
-                result.current.handleDragStart(1)({
-                    dataTransfer: {
-                        effectAllowed: '',
-                        setData: vi.fn(),
-                    },
-                } as any)
+                result.current.handleDragStart(1)(createMockDragEvent())
             })
 
             // Drop on target
@@ -171,9 +147,7 @@ describe('useDragDrop', () => {
 
         it('should not move tab when draggedTabId is undefined', () => {
             const { result } = renderHook(() => useDragDrop(mockTabs))
-            const mockEvent = {
-                preventDefault: vi.fn(),
-            } as any
+            const mockEvent = createMockDragEvent()
 
             act(() => {
                 result.current.handleDrop(2)(mockEvent)
@@ -184,17 +158,10 @@ describe('useDragDrop', () => {
 
         it('should not move tab when targetTabId is undefined', () => {
             const { result } = renderHook(() => useDragDrop(mockTabs))
-            const mockEvent = {
-                preventDefault: vi.fn(),
-            } as any
+            const mockEvent = createMockDragEvent()
 
             act(() => {
-                result.current.handleDragStart(1)({
-                    dataTransfer: {
-                        effectAllowed: '',
-                        setData: vi.fn(),
-                    },
-                } as any)
+                result.current.handleDragStart(1)(createMockDragEvent())
             })
 
             act(() => {
@@ -206,17 +173,10 @@ describe('useDragDrop', () => {
 
         it('should not move tab when draggedTabId equals targetTabId', () => {
             const { result } = renderHook(() => useDragDrop(mockTabs))
-            const mockEvent = {
-                preventDefault: vi.fn(),
-            } as any
+            const mockEvent = createMockDragEvent()
 
             act(() => {
-                result.current.handleDragStart(1)({
-                    dataTransfer: {
-                        effectAllowed: '',
-                        setData: vi.fn(),
-                    },
-                } as any)
+                result.current.handleDragStart(1)(createMockDragEvent())
             })
 
             act(() => {
@@ -227,27 +187,26 @@ describe('useDragDrop', () => {
         })
 
         it('should reset state after successful drop', () => {
-            const mockMove = vi.fn((_tabId, _moveProperties, callback) => {
-                callback?.()
-            })
+            const mockMove = vi.fn(
+                (
+                    _tabId: number,
+                    _moveProperties: chrome.tabs.MoveProperties,
+                    callback?: (tab: chrome.tabs.Tab) => void,
+                ) => {
+                    callback?.(mockTabs[0])
+                },
+            )
 
-            chrome.tabs.move = mockMove
+            chrome.tabs.move = mockMove as unknown as typeof chrome.tabs.move
 
             const { result } = renderHook(() => useDragDrop(mockTabs))
 
             act(() => {
-                result.current.handleDragStart(1)({
-                    dataTransfer: {
-                        effectAllowed: '',
-                        setData: vi.fn(),
-                    },
-                } as any)
+                result.current.handleDragStart(1)(createMockDragEvent())
             })
 
             act(() => {
-                result.current.handleDrop(2)({
-                    preventDefault: vi.fn(),
-                } as any)
+                result.current.handleDrop(2)(createMockDragEvent())
             })
 
             expect(result.current.draggedTabId).toBeUndefined()
