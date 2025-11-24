@@ -1,5 +1,6 @@
 .address-bar {
     flex-grow: 1;
+    min-width: 0;
 }
 
 .address-bar > div:first-child {
