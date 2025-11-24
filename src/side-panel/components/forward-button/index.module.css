@@ -1,0 +1,31 @@
+.forward-button {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: var(--icon-size-lg);
+    height: var(--icon-size-lg);
+    padding: 0;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-base);
+}
+
+.forward-button:hover:not(:disabled) {
+    color: var(--color-text-primary);
+    background: var(--color-bg-hover);
+}
+
+.forward-button:active:not(:disabled) {
+    background: var(--color-bg-active-hover);
+    transform: scale(0.95);
+}
+
+.forward-button:disabled {
+    color: var(--color-text-disabled);
+    cursor: not-allowed;
+    opacity: 0.5;
+}

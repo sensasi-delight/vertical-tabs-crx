@@ -3,6 +3,7 @@ import style from './app.module.css'
 import AddressBar from './components/address-bar'
 import BackButton from './components/back-button'
 import Footer from './components/footer'
+import ForwardButton from './components/forward-button'
 import LinearProgress from './components/linear-progress'
 import NewTabButton from './components/new-tab-button'
 import RandomTip from './components/random-tip'
@@ -49,6 +50,7 @@ export default function App() {
         <div className={style.container}>
             <div className={style['top-bar-container']}>
                 <BackButton />
+                <ForwardButton />
                 <RefreshButton />
                 <AddressBar />
                 <LinearProgress />
