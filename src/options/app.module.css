@@ -138,6 +138,27 @@
     text-align: right;
 }
 
+/* Toggle Switch Group */
+.switchGroup {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    align-items: flex-start;
+    margin-top: var(--spacing-md);
+}
+
+.switchRow {
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: center;
+}
+
+.switchLabel {
+    font-size: 14px;
+    color: var(--color-text-primary);
+    user-select: none;
+}
+
 /* Toggle Switch */
 .switch {
     position: relative;

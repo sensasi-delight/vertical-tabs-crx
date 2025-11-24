@@ -69,24 +69,49 @@ export function App() {
 
             <div className={style.content}>
                 <div className={style.section}>
-                    <div className={style.setting}>
-                        <div className={style.settingInfo}>
-                            <h2 className={style.settingTitle}>
-                                Show Toggle Button
-                            </h2>
-                            <p className={style.settingDescription}>
-                                Display a floating button on web pages to toggle
-                                the side panel
-                            </p>
+                    <div className={style.settingInfo}>
+                        <h2 className={style.settingTitle}>
+                            Show/Hide Components
+                        </h2>
+
+                        <p className={style.settingDescription}>
+                            Toggle the visibility of various UI components in
+                            the extension
+                        </p>
+                    </div>
+
+                    <div className={style.switchGroup}>
+                        <div className={style.switchRow}>
+                            <label className={style.switch}>
+                                <input
+                                    checked={showToggleButton}
+                                    onChange={e =>
+                                        handleToggle(e.target.checked)
+                                    }
+                                    type="checkbox"
+                                />
+                                <span className={style.slider} />
+                            </label>
+                            <span className={style.switchLabel}>
+                                On Page Toggle Button
+                            </span>
                         </div>
-                        <label className={style.switch}>
-                            <input
-                                checked={showToggleButton}
-                                onChange={e => handleToggle(e.target.checked)}
-                                type="checkbox"
-                            />
-                            <span className={style.slider} />
-                        </label>
+
+                        <div className={style.switchRow}>
+                            <label className={style.switch}>
+                                <input
+                                    checked={showRandomTips}
+                                    onChange={e =>
+                                        handleTipsToggle(e.target.checked)
+                                    }
+                                    type="checkbox"
+                                />
+                                <span className={style.slider} />
+                            </label>
+                            <span className={style.switchLabel}>
+                                Random Tips
+                            </span>
+                        </div>
                     </div>
 
                     <Activity mode={showToggleButton ? 'visible' : 'hidden'}>
@@ -94,7 +119,7 @@ export function App() {
                             className={`${style.setting} ${style.settingWithSlider}`}>
                             <div className={style.settingInfo}>
                                 <h2 className={style.settingTitle}>
-                                    Button Opacity
+                                    On Page Toggle Button Opacity
                                 </h2>
                                 <p className={style.settingDescription}>
                                     Adjust the transparency of the toggle button
@@ -121,29 +146,6 @@ export function App() {
                             </div>
                         </div>
                     </Activity>
-
-                    <div
-                        className={`${style.setting} ${style.settingWithSeparator}`}>
-                        <div className={style.settingInfo}>
-                            <h2 className={style.settingTitle}>
-                                Show Random Tips
-                            </h2>
-                            <p className={style.settingDescription}>
-                                Display helpful tips at the bottom of the side
-                                panel
-                            </p>
-                        </div>
-                        <label className={style.switch}>
-                            <input
-                                checked={showRandomTips}
-                                onChange={e =>
-                                    handleTipsToggle(e.target.checked)
-                                }
-                                type="checkbox"
-                            />
-                            <span className={style.slider} />
-                        </label>
-                    </div>
                 </div>
 
                 <Activity mode={saved ? 'visible' : 'hidden'}>
