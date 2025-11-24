@@ -14,19 +14,50 @@ import VerticalTabs from './components/vertical-tabs'
 import { useRegisterListener } from './use-register-listener'
 
 const STORAGE_KEY_SHOW_TIPS = 'showRandomTips'
+const STORAGE_KEY_SHOW_BACK_BUTTON = 'showBackButton'
+const STORAGE_KEY_SHOW_FORWARD_BUTTON = 'showForwardButton'
+const STORAGE_KEY_SHOW_REFRESH_BUTTON = 'showRefreshButton'
 
 export default function App() {
     useRegisterListener()
     const [showRandomTips, setShowRandomTips] = useState(true)
+    const [showBackButton, setShowBackButton] = useState(true)
+    const [showForwardButton, setShowForwardButton] = useState(true)
+    const [showRefreshButton, setShowRefreshButton] = useState(true)
 
     useEffect(() => {
         // Load saved setting
-        chrome.storage.sync.get([STORAGE_KEY_SHOW_TIPS], result => {
-            const showTipsValue = result[STORAGE_KEY_SHOW_TIPS]
-            if (typeof showTipsValue === 'boolean') {
-                setShowRandomTips(showTipsValue)
-            }
-        })
+        chrome.storage.sync.get(
+            [
+                STORAGE_KEY_SHOW_TIPS,
+                STORAGE_KEY_SHOW_BACK_BUTTON,
+                STORAGE_KEY_SHOW_FORWARD_BUTTON,
+                STORAGE_KEY_SHOW_REFRESH_BUTTON,
+            ],
+            result => {
+                const showTipsValue = result[STORAGE_KEY_SHOW_TIPS]
+                if (typeof showTipsValue === 'boolean') {
+                    setShowRandomTips(showTipsValue)
+                }
+
+                const showBackButtonValue = result[STORAGE_KEY_SHOW_BACK_BUTTON]
+                if (typeof showBackButtonValue === 'boolean') {
+                    setShowBackButton(showBackButtonValue)
+                }
+
+                const showForwardButtonValue =
+                    result[STORAGE_KEY_SHOW_FORWARD_BUTTON]
+                if (typeof showForwardButtonValue === 'boolean') {
+                    setShowForwardButton(showForwardButtonValue)
+                }
+
+                const showRefreshButtonValue =
+                    result[STORAGE_KEY_SHOW_REFRESH_BUTTON]
+                if (typeof showRefreshButtonValue === 'boolean') {
+                    setShowRefreshButton(showRefreshButtonValue)
+                }
+            },
+        )
 
         // Listen for changes
         const handleStorageChange = (
@@ -36,6 +67,32 @@ export default function App() {
             if (areaName === 'sync' && changes[STORAGE_KEY_SHOW_TIPS]) {
                 setShowRandomTips(
                     changes[STORAGE_KEY_SHOW_TIPS].newValue as boolean,
+                )
+            }
+
+            if (areaName === 'sync' && changes[STORAGE_KEY_SHOW_BACK_BUTTON]) {
+                setShowBackButton(
+                    changes[STORAGE_KEY_SHOW_BACK_BUTTON].newValue as boolean,
+                )
+            }
+
+            if (
+                areaName === 'sync' &&
+                changes[STORAGE_KEY_SHOW_FORWARD_BUTTON]
+            ) {
+                setShowForwardButton(
+                    changes[STORAGE_KEY_SHOW_FORWARD_BUTTON]
+                        .newValue as boolean,
+                )
+            }
+
+            if (
+                areaName === 'sync' &&
+                changes[STORAGE_KEY_SHOW_REFRESH_BUTTON]
+            ) {
+                setShowRefreshButton(
+                    changes[STORAGE_KEY_SHOW_REFRESH_BUTTON]
+                        .newValue as boolean,
                 )
             }
         }
@@ -49,9 +106,15 @@ export default function App() {
     return (
         <div className={style.container}>
             <div className={style['top-bar-container']}>
-                <BackButton />
-                <ForwardButton />
-                <RefreshButton />
+                <Activity mode={showBackButton ? 'visible' : 'hidden'}>
+                    <BackButton />
+                </Activity>
+                <Activity mode={showForwardButton ? 'visible' : 'hidden'}>
+                    <ForwardButton />
+                </Activity>
+                <Activity mode={showRefreshButton ? 'visible' : 'hidden'}>
+                    <RefreshButton />
+                </Activity>
                 <AddressBar />
                 <LinearProgress />
             </div>

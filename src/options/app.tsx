@@ -4,17 +4,30 @@ import style from './app.module.css'
 const STORAGE_KEY_SHOW = 'showToggleButton'
 const STORAGE_KEY_OPACITY = 'toggleButtonOpacity'
 const STORAGE_KEY_SHOW_TIPS = 'showRandomTips'
+const STORAGE_KEY_SHOW_BACK_BUTTON = 'showBackButton'
+const STORAGE_KEY_SHOW_FORWARD_BUTTON = 'showForwardButton'
+const STORAGE_KEY_SHOW_REFRESH_BUTTON = 'showRefreshButton'
 
 export function App() {
     const [showToggleButton, setShowToggleButton] = useState(true)
     const [opacity, setOpacity] = useState(0.5)
     const [showRandomTips, setShowRandomTips] = useState(true)
+    const [showBackButton, setShowBackButton] = useState(true)
+    const [showForwardButton, setShowForwardButton] = useState(true)
+    const [showRefreshButton, setShowRefreshButton] = useState(true)
     const [saved, setSaved] = useState(false)
 
     useEffect(() => {
         // Load saved settings
         chrome.storage.sync.get(
-            [STORAGE_KEY_SHOW, STORAGE_KEY_OPACITY, STORAGE_KEY_SHOW_TIPS],
+            [
+                STORAGE_KEY_SHOW,
+                STORAGE_KEY_OPACITY,
+                STORAGE_KEY_SHOW_TIPS,
+                STORAGE_KEY_SHOW_BACK_BUTTON,
+                STORAGE_KEY_SHOW_FORWARD_BUTTON,
+                STORAGE_KEY_SHOW_REFRESH_BUTTON,
+            ],
             result => {
                 const showValue = result[STORAGE_KEY_SHOW]
                 if (typeof showValue === 'boolean') {
@@ -29,6 +42,23 @@ export function App() {
                 const showTipsValue = result[STORAGE_KEY_SHOW_TIPS]
                 if (typeof showTipsValue === 'boolean') {
                     setShowRandomTips(showTipsValue)
+                }
+
+                const showBackButtonValue = result[STORAGE_KEY_SHOW_BACK_BUTTON]
+                if (typeof showBackButtonValue === 'boolean') {
+                    setShowBackButton(showBackButtonValue)
+                }
+
+                const showForwardButtonValue =
+                    result[STORAGE_KEY_SHOW_FORWARD_BUTTON]
+                if (typeof showForwardButtonValue === 'boolean') {
+                    setShowForwardButton(showForwardButtonValue)
+                }
+
+                const showRefreshButtonValue =
+                    result[STORAGE_KEY_SHOW_REFRESH_BUTTON]
+                if (typeof showRefreshButtonValue === 'boolean') {
+                    setShowRefreshButton(showRefreshButtonValue)
                 }
             },
         )
@@ -56,6 +86,39 @@ export function App() {
             setSaved(true)
             setTimeout(() => setSaved(false), 2000)
         })
+    }
+
+    const handleBackButtonToggle = (checked: boolean) => {
+        setShowBackButton(checked)
+        chrome.storage.sync.set(
+            { [STORAGE_KEY_SHOW_BACK_BUTTON]: checked },
+            () => {
+                setSaved(true)
+                setTimeout(() => setSaved(false), 2000)
+            },
+        )
+    }
+
+    const handleForwardButtonToggle = (checked: boolean) => {
+        setShowForwardButton(checked)
+        chrome.storage.sync.set(
+            { [STORAGE_KEY_SHOW_FORWARD_BUTTON]: checked },
+            () => {
+                setSaved(true)
+                setTimeout(() => setSaved(false), 2000)
+            },
+        )
+    }
+
+    const handleRefreshButtonToggle = (checked: boolean) => {
+        setShowRefreshButton(checked)
+        chrome.storage.sync.set(
+            { [STORAGE_KEY_SHOW_REFRESH_BUTTON]: checked },
+            () => {
+                setSaved(true)
+                setTimeout(() => setSaved(false), 2000)
+            },
+        )
     }
 
     return (
@@ -110,6 +173,58 @@ export function App() {
                             </label>
                             <span className={style.switchLabel}>
                                 Random Tips
+                            </span>
+                        </div>
+
+                        <div className={style.switchRow}>
+                            <label className={style.switch}>
+                                <input
+                                    checked={showBackButton}
+                                    onChange={e =>
+                                        handleBackButtonToggle(e.target.checked)
+                                    }
+                                    type="checkbox"
+                                />
+                                <span className={style.slider} />
+                            </label>
+                            <span className={style.switchLabel}>
+                                Back Button
+                            </span>
+                        </div>
+
+                        <div className={style.switchRow}>
+                            <label className={style.switch}>
+                                <input
+                                    checked={showForwardButton}
+                                    onChange={e =>
+                                        handleForwardButtonToggle(
+                                            e.target.checked,
+                                        )
+                                    }
+                                    type="checkbox"
+                                />
+                                <span className={style.slider} />
+                            </label>
+                            <span className={style.switchLabel}>
+                                Forward Button
+                            </span>
+                        </div>
+
+                        <div className={style.switchRow}>
+                            <label className={style.switch}>
+                                <input
+                                    checked={showRefreshButton}
+                                    onChange={e =>
+                                        handleRefreshButtonToggle(
+                                            e.target.checked,
+                                        )
+                                    }
+                                    type="checkbox"
+                                />
+                                <span className={style.slider} />
+                            </label>
+                            <span className={style.switchLabel}>
+                                Refresh Button
                             </span>
                         </div>
                     </div>
