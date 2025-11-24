@@ -2,6 +2,7 @@
 
 A clean and simple Chrome extension that shows your tabs in a vertical sidebar. Perfect for managing many tabs without clutter!
 
+![Build Status](https://github.com/sensasi-delight/vertical-tabs-crx/actions/workflows/build.yml/badge.svg)
 ![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-blue?logo=googlechrome)
 ![Manifest V3](https://img.shields.io/badge/Manifest-V3-green)
 ![React 19](https://img.shields.io/badge/React-19-61dafb?logo=react)
