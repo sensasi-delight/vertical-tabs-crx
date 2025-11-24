@@ -123,14 +123,17 @@ export default function App() {
 
             <NewTabButton />
 
-            <div className={style['middle-container']}>
-                <Activity mode={showRandomTips ? 'visible' : 'hidden'}>
-                    <RandomTip />
-                </Activity>
-                <SettingsButton />
-            </div>
+            <div className={style['footer-container']}>
+                <div className={style['pre-footer-container']}>
+                    <Activity mode={showRandomTips ? 'visible' : 'hidden'}>
+                        <RandomTip />
+                    </Activity>
 
-            <Footer />
+                    <SettingsButton />
+                </div>
+
+                <Footer />
+            </div>
         </div>
     )
 }
