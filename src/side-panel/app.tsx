@@ -1,6 +1,7 @@
 import { Activity, useEffect, useState } from 'react'
 import style from './app.module.css'
 import AddressBar from './components/address-bar'
+import BackButton from './components/back-button'
 import Footer from './components/footer'
 import LinearProgress from './components/linear-progress'
 import NewTabButton from './components/new-tab-button'
@@ -47,6 +48,7 @@ export default function App() {
     return (
         <div className={style.container}>
             <div className={style['top-bar-container']}>
+                <BackButton />
                 <RefreshButton />
                 <AddressBar />
                 <LinearProgress />
