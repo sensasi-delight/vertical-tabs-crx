@@ -29,7 +29,7 @@ export default defineManifest({
             matches: ['<all_urls>'],
         },
     ],
-    description: `Press ALT + X to quickly toggle the side panel 🧭 ${pkg.description}`,
+    description: `Press ALT + X to toggle the side panel 🧭 ${pkg.description}`,
     homepage_url: pkg.homepage,
     icons: {
         48: 'public/logo.png',
