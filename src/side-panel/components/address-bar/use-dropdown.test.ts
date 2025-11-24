@@ -1,17 +1,17 @@
 import { act, fireEvent, renderHook } from '@testing-library/react'
 import { createRef } from 'react'
-import { beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { useDropdown } from './use-dropdown'
 
 describe('useDropdown', () => {
-    let inputRef: React.RefObject<HTMLInputElement>
+    let inputRef: React.RefObject<HTMLInputElement | null>
 
     beforeEach(() => {
         inputRef = createRef<HTMLInputElement>()
         // Create a real input element for the ref
         const input = document.createElement('input')
         document.body.appendChild(input)
-        ;(inputRef as any).current = input
+        inputRef.current = input
     })
 
     afterEach(() => {
@@ -86,7 +86,11 @@ describe('useDropdown', () => {
 
         // Click inside input
         act(() => {
-            fireEvent.mouseDown(inputRef.current!)
+            if (!inputRef.current) {
+                throw new Error('inputRef.current is null')
+            }
+
+            fireEvent.mouseDown(inputRef.current)
         })
 
         expect(result.current.showDropdown).toBe(true)
@@ -98,7 +102,7 @@ describe('useDropdown', () => {
         // Create dropdown element
         const dropdown = document.createElement('div')
         document.body.appendChild(dropdown)
-        ;(result.current.dropdownRef as any).current = dropdown
+        result.current.dropdownRef.current = dropdown
 
         act(() => {
             result.current.setShowDropdown(true)

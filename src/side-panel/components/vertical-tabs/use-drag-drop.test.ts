@@ -135,9 +135,10 @@ describe('useDragDrop', () => {
 
     describe('handleDrop', () => {
         it('should call chrome.tabs.move with correct parameters', () => {
-            const mockMove = vi.fn((tabId, moveProperties, callback) => {
+            const mockMove = vi.fn((_tabId, _moveProperties, callback) => {
                 callback?.()
             })
+
             chrome.tabs.move = mockMove
 
             const { result } = renderHook(() => useDragDrop(mockTabs))
@@ -226,7 +227,7 @@ describe('useDragDrop', () => {
         })
 
         it('should reset state after successful drop', () => {
-            const mockMove = vi.fn((tabId, moveProperties, callback) => {
+            const mockMove = vi.fn((_tabId, _moveProperties, callback) => {
                 callback?.()
             })
 
