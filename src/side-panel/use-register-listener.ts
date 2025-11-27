@@ -6,6 +6,17 @@ export function useRegisterListener() {
     const setTabs = useSetTabs()
     const setActiveTab = useSetActiveTab()
 
+    // 🔌 CONNECT TO SERVICE WORKER
+    useEffect(() => {
+        // Create persistent connection to service worker
+        // This allows service worker to detect when side panel is closed
+        const port = chrome.runtime.connect({ name: 'side-panel' })
+
+        return () => {
+            port.disconnect()
+        }
+    }, [])
+
     // 🕛 SET INITIAL DATA
     useEffect(() => {
         // Initialize tabs

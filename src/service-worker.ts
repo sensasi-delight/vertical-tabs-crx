@@ -1,5 +1,30 @@
 let isOpen: boolean | 'processing' = false
 
+const openSidePanel = (tabId: number, windowId: number) => {
+    isOpen = 'processing'
+
+    chrome.sidePanel.open({
+        tabId,
+        windowId,
+    })
+}
+
+const closeSidePanel = () => {
+    isOpen = 'processing'
+}
+
+// Listen for port connections from side panel
+chrome.runtime.onConnect.addListener(port => {
+    if (port.name === 'side-panel') {
+        isOpen = true
+
+        // When port disconnects, side panel is closed
+        port.onDisconnect.addListener(() => {
+            isOpen = false
+        })
+    }
+})
+
 chrome.action.onClicked.addListener(tab => {
     if (!tab?.id || isOpen === 'processing') return
 
@@ -21,27 +46,6 @@ chrome.commands.onCommand.addListener((command, tab) => {
         }
     }
 })
-
-const openSidePanel = (tabId: number, windowId: number) => {
-    isOpen = 'processing'
-
-    chrome.sidePanel
-        .open({
-            tabId,
-            windowId,
-        })
-        .then(() => {
-            isOpen = true
-        })
-}
-
-const closeSidePanel = () => {
-    isOpen = 'processing'
-
-    chrome.runtime.sendMessage({ type: 'CLOSE_SIDE_PANEL' }).then(() => {
-        isOpen = false
-    })
-}
 
 chrome.runtime.onMessage.addListener((message, sender) => {
     if (message.type === 'TOGGLE_SIDE_PANEL_FROM_CONTENT') {
