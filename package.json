@@ -20,17 +20,17 @@
         "@testing-library/jest-dom": "^6.9.1",
         "@testing-library/react": "^16.3.0",
         "@testing-library/react-hooks": "^8.0.1",
-        "@types/chrome": "^0.1.30",
+        "@types/chrome": "^0.1.31",
         "@types/node": "^24.10.1",
-        "@types/react": "^19.2.6",
+        "@types/react": "^19.2.7",
         "@types/react-dom": "^19.2.3",
         "@vitejs/plugin-react": "^5.1.1",
         "babel-plugin-react-compiler": "^1.0.0",
         "jsdom": "^27.2.0",
         "typescript": "~5.8.3",
-        "vite": "^7.2.2",
+        "vite": "^7.2.4",
         "vite-plugin-zip-pack": "^1.2.4",
-        "vitest": "^4.0.13"
+        "vitest": "^4.0.14"
     },
     "homepage": "https://github.com/sensasi-delight/vertical-tabs-crx",
     "keywords": [
@@ -60,5 +60,5 @@
         "test": "vitest run"
     },
     "type": "module",
-    "version": "0.0.1"
+    "version": "0.0.2"
 }
