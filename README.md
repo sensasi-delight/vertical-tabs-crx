@@ -2,10 +2,8 @@
 
 A clean and simple Chrome extension that shows your tabs in a vertical sidebar. Perfect for managing many tabs without clutter!
 
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/v/cgocnaphmglbfjcdhkmpakgildijpgkf)](https://chromewebstore.google.com/detail/vertical-tabs-by-sensasi/cgocnaphmglbfjcdhkmpakgildijpgkf)
 ![Build Status](https://github.com/sensasi-delight/vertical-tabs-crx/actions/workflows/build.yml/badge.svg)
-![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-blue?logo=googlechrome)
-![Manifest V3](https://img.shields.io/badge/Manifest-V3-green)
-![React 19](https://img.shields.io/badge/React-19-61dafb?logo=react)
 
 **Having issues?** [Report a bug](https://github.com/sensasi-delight/vertical-tabs-crx/issues)  
 **Like this extension?** Give it a ⭐ on [GitHub](https://github.com/sensasi-delight/vertical-tabs-crx)
@@ -30,8 +28,8 @@ A clean and simple Chrome extension that shows your tabs in a vertical sidebar. 
 
 ### For Users
 
-1. Download from Chrome Web Store (coming soon)
-2. Click the extension icon or press `Ctrl+Shift+X`
+1. [Download from Chrome Web Store](https://chromewebstore.google.com/detail/vertical-tabs-by-sensasi/cgocnaphmglbfjcdhkmpakgildijpgkf)
+2. Click the extension icon or press `Alt+X`
 3. Enjoy your vertical tabs!
 
 ### For Developers
@@ -69,7 +67,7 @@ bun build
 
 Built with modern tools for speed and reliability:
 
-- **React 19** - Latest React with built-in compiler
+- **React 19.2** - Latest React with built-in compiler
 - **TypeScript** - Type-safe code
 - **Vite** - Lightning-fast builds
 - **Biome** - Super fast linting
@@ -108,4 +106,4 @@ bun lint:fix   # Format code
 
 ---
 
-Made with ❤️ by [Sensasi Delight](https://sensasi-delight.web.app)
+Made with ❤️ by [🍕](https://sensasi-delight.web.app)
