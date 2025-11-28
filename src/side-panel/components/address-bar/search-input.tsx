@@ -23,39 +23,28 @@ export function SearchInput({
             /^[a-z0-9.-]+\.[a-z]{2,}/i.test(value) ||
             value.includes('/'))
 
-    if (isUrl) {
-        const { domain, path } = splitUrlParts(value)
+    const { domain, path } = isUrl
+        ? splitUrlParts(value)
+        : { domain: '', path: '' }
 
-        return (
-            <div className={style['input-wrapper']}>
-                <input
-                    className={style.input}
-                    onChange={e => onValueChange(e.target.value)}
-                    onFocus={onFocus}
-                    onKeyDown={onKeyDown}
-                    placeholder="Search Google or type a URL"
-                    ref={inputRef}
-                    type="text"
-                    value={value}
-                />
+    return (
+        <div className={style['input-wrapper']}>
+            <input
+                className={style.input}
+                onChange={e => onValueChange(e.target.value)}
+                onFocus={onFocus}
+                onKeyDown={onKeyDown}
+                placeholder="Search Google or type a URL"
+                ref={inputRef}
+                type="text"
+                value={value}
+            />
+            {isUrl && (
                 <div className={style['url-display']}>
                     <span className={style['url-domain']}>{domain}</span>
                     <span className={style['url-path']}>{path}</span>
                 </div>
-            </div>
-        )
-    }
-
-    return (
-        <input
-            className={style.input}
-            onChange={e => onValueChange(e.target.value)}
-            onFocus={onFocus}
-            onKeyDown={onKeyDown}
-            placeholder="Search Google or type a URL"
-            ref={inputRef}
-            type="text"
-            value={value}
-        />
+            )}
+        </div>
     )
 }
