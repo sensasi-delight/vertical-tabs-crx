@@ -1,35 +1,56 @@
-let isOpen: boolean | 'processing' = false
+const ports = new Map<number, chrome.runtime.Port>()
+const processingWindows = new Set<number>()
 
-const openSidePanel = (tabId: number, windowId: number) => {
-    isOpen = 'processing'
+const openSidePanel = async (tabId: number, windowId: number) => {
+    if (processingWindows.has(windowId)) return
+    processingWindows.add(windowId)
 
-    chrome.sidePanel.open({
-        tabId,
-        windowId,
-    })
+    try {
+        await chrome.sidePanel.open({
+            tabId,
+            windowId,
+        })
+    } catch (error) {
+        console.error('Failed to open side panel:', error)
+        processingWindows.delete(windowId)
+    }
 }
 
-const closeSidePanel = () => {
-    isOpen = 'processing'
+const closeSidePanel = (windowId: number) => {
+    if (processingWindows.has(windowId)) return
+
+    const port = ports.get(windowId)
+    if (port) {
+        processingWindows.add(windowId)
+        port.postMessage({ type: 'CLOSE_SIDE_PANEL' })
+    }
 }
 
 // Listen for port connections from side panel
 chrome.runtime.onConnect.addListener(port => {
     if (port.name === 'side-panel') {
-        isOpen = true
+        const windowId = port.sender?.tab?.windowId
 
-        // When port disconnects, side panel is closed
-        port.onDisconnect.addListener(() => {
-            isOpen = false
-        })
+        if (typeof windowId === 'number') {
+            ports.set(windowId, port)
+            processingWindows.delete(windowId)
+
+            // When port disconnects, side panel is closed
+            port.onDisconnect.addListener(() => {
+                ports.delete(windowId)
+                processingWindows.delete(windowId)
+            })
+        }
     }
 })
 
 chrome.action.onClicked.addListener(tab => {
-    if (!tab?.id || isOpen === 'processing') return
+    if (!tab?.id || !tab.windowId) return
 
-    if (isOpen) {
-        closeSidePanel()
+    if (processingWindows.has(tab.windowId)) return
+
+    if (ports.has(tab.windowId)) {
+        closeSidePanel(tab.windowId)
     } else {
         openSidePanel(tab.id, tab.windowId)
     }
@@ -37,10 +58,12 @@ chrome.action.onClicked.addListener(tab => {
 
 chrome.commands.onCommand.addListener((command, tab) => {
     if (command === 'TOGGLE_SIDE_PANEL') {
-        if (!tab?.id || isOpen === 'processing') return
+        if (!tab?.id || !tab.windowId) return
 
-        if (isOpen) {
-            closeSidePanel()
+        if (processingWindows.has(tab.windowId)) return
+
+        if (ports.has(tab.windowId)) {
+            closeSidePanel(tab.windowId)
         } else {
             openSidePanel(tab.id, tab.windowId)
         }
@@ -49,10 +72,12 @@ chrome.commands.onCommand.addListener((command, tab) => {
 
 chrome.runtime.onMessage.addListener((message, sender) => {
     if (message.type === 'TOGGLE_SIDE_PANEL_FROM_CONTENT') {
-        if (!sender.tab?.id || isOpen === 'processing') return
+        if (!sender.tab?.id || !sender.tab.windowId) return
 
-        if (isOpen) {
-            closeSidePanel()
+        if (processingWindows.has(sender.tab.windowId)) return
+
+        if (ports.has(sender.tab.windowId)) {
+            closeSidePanel(sender.tab.windowId)
         } else {
             openSidePanel(sender.tab.id, sender.tab.windowId)
         }
