@@ -12,6 +12,12 @@ export function useRegisterListener() {
         // This allows service worker to detect when side panel is closed
         const port = chrome.runtime.connect({ name: 'side-panel' })
 
+        port.onMessage.addListener((message: { type: 'CLOSE_SIDE_PANEL' }) => {
+            if (message.type === 'CLOSE_SIDE_PANEL') {
+                window.close()
+            }
+        })
+
         return () => {
             port.disconnect()
         }
@@ -30,21 +36,6 @@ export function useRegisterListener() {
             setActiveTab(tab)
         })
     }, [setTabs, setActiveTab])
-
-    // ✉️ ON MESSAGE
-    useEffect(() => {
-        const handleMessage = (message: { type: string }) => {
-            if (message.type === 'CLOSE_SIDE_PANEL') {
-                window.close()
-            }
-        }
-
-        chrome.runtime.onMessage.addListener(handleMessage)
-
-        return () => {
-            chrome.runtime.onMessage.removeListener(handleMessage)
-        }
-    }, [])
 
     // 🆕 ON TAB CREATED
     useEffect(() => {

@@ -3,43 +3,60 @@ const processingWindows = new Set<number>()
 
 const openSidePanel = async (tabId: number, windowId: number) => {
     if (processingWindows.has(windowId)) return
+
     processingWindows.add(windowId)
 
-    try {
-        await chrome.sidePanel.open({
+    chrome.sidePanel
+        .open({
             tabId,
             windowId,
         })
-    } catch (error) {
-        console.error('Failed to open side panel:', error)
-        processingWindows.delete(windowId)
-    }
+        .finally(() => {
+            processingWindows.delete(windowId)
+        })
 }
 
 const closeSidePanel = (windowId: number) => {
     if (processingWindows.has(windowId)) return
 
     const port = ports.get(windowId)
+
     if (port) {
         processingWindows.add(windowId)
         port.postMessage({ type: 'CLOSE_SIDE_PANEL' })
+    } else {
+        throw new Error('Port not found')
     }
 }
 
 // Listen for port connections from side panel
 chrome.runtime.onConnect.addListener(port => {
     if (port.name === 'side-panel') {
-        const windowId = port.sender?.tab?.windowId
+        const tab = port.sender?.tab
 
-        if (typeof windowId === 'number') {
-            ports.set(windowId, port)
-            processingWindows.delete(windowId)
+        if (tab?.windowId) {
+            ports.set(tab.windowId, port)
+            processingWindows.delete(tab.windowId)
 
             // When port disconnects, side panel is closed
             port.onDisconnect.addListener(() => {
-                ports.delete(windowId)
-                processingWindows.delete(windowId)
+                ports.delete(tab.windowId)
+                processingWindows.delete(tab.windowId)
             })
+        } else {
+            chrome.tabs
+                .query({ active: true, currentWindow: true })
+                .then(tabs => {
+                    const [tab] = tabs
+                    ports.set(tab.windowId, port)
+                    processingWindows.delete(tab.windowId)
+
+                    // When port disconnects, side panel is closed
+                    port.onDisconnect.addListener(() => {
+                        ports.delete(tab.windowId)
+                        processingWindows.delete(tab.windowId)
+                    })
+                })
         }
     }
 })
