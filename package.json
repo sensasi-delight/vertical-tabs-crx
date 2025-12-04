@@ -9,8 +9,8 @@
     },
     "dependencies": {
         "jotai": "^2.15.2",
-        "react": "^19.2.0",
-        "react-dom": "^19.2.0"
+        "react": "^19.2.1",
+        "react-dom": "^19.2.1"
     },
     "description": "A clean vertical tab sidebar for Chrome — fast, minimal, and fully usable in fullscreen 🧭",
     "devDependencies": {
@@ -30,7 +30,7 @@
         "typescript": "~5.8.3",
         "vite": "^7.2.6",
         "vite-plugin-zip-pack": "^1.2.4",
-        "vitest": "^4.0.14"
+        "vitest": "^4.0.15"
     },
     "homepage": "https://github.com/sensasi-delight/vertical-tabs-crx",
     "keywords": [
@@ -60,5 +60,5 @@
         "test": "vitest run"
     },
     "type": "module",
-    "version": "0.0.4"
+    "version": "0.0.5"
 }
