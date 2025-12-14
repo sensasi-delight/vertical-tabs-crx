@@ -8,27 +8,27 @@
         "url": "https://github.com/sensasi-delight/vertical-tabs-crx/issues"
     },
     "dependencies": {
-        "jotai": "^2.15.2",
-        "react": "^19.2.1",
-        "react-dom": "^19.2.1"
+        "jotai": "^2.16.0",
+        "react": "^19.2.3",
+        "react-dom": "^19.2.3"
     },
     "description": "A clean vertical tab sidebar for Chrome — fast, minimal, and fully usable in fullscreen 🧭",
     "devDependencies": {
         "@biomejs/biome": "2.3.6",
-        "@crxjs/vite-plugin": "^2.2.1",
+        "@crxjs/vite-plugin": "^2.3.0",
         "@testing-library/dom": "^10.4.1",
         "@testing-library/jest-dom": "^6.9.1",
         "@testing-library/react": "^16.3.0",
         "@testing-library/react-hooks": "^8.0.1",
         "@types/chrome": "^0.1.32",
-        "@types/node": "^24.10.1",
+        "@types/node": "^24.10.4",
         "@types/react": "^19.2.7",
         "@types/react-dom": "^19.2.3",
-        "@vitejs/plugin-react": "^5.1.1",
+        "@vitejs/plugin-react": "^5.1.2",
         "babel-plugin-react-compiler": "^1.0.0",
-        "jsdom": "^27.2.0",
+        "jsdom": "^27.3.0",
         "typescript": "~5.8.3",
-        "vite": "^7.2.6",
+        "vite": "^7.2.7",
         "vite-plugin-zip-pack": "^1.2.4",
         "vitest": "^4.0.15"
     },
